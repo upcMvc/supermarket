@@ -15,9 +15,9 @@ public class Blacklist {
     long createTime;
     String reason;
 
-    public Blacklist(int userId, long createTime, String reason) {
+    public Blacklist(int userId, String reason) {
         this.userId = userId;
-        this.createTime = createTime;
+        this.createTime = System.currentTimeMillis();
         this.reason = reason;
     }
 
