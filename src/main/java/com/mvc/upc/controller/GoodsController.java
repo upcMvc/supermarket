@@ -11,6 +11,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by chenzifeng on 2017/7/8.
+ * 关于商品的 增·删·查·改
+ * 接口 ：
+ *  /goods/create
+ *  参数：String name, String kind,String describe,
+ *       int num, double price,String reader,String suffix
+ *       其中 reader是图片经过base64转码后的字符串，suffix是图片的后缀名
+ *
+ *  /goods/update
+ *
+ *  /goods/findAll
+ *
+ *  /goods/delete
  */
 @RequestMapping("/goods")
 public class GoodsController {
@@ -24,7 +36,8 @@ public class GoodsController {
     public Object create(String name, String kind,String describe, int num, double price,String reader,String suffix){
 
         String path = base64Service.generateImage(reader,name,suffix);
-
+        if(path==null)
+            return new JsonMes(-1,"失败");
         Goods good = new Goods(name,kind,path,describe,num,price);
         goodsRepository.save(good);
         return new JsonMes(1,"创建成功");
@@ -32,7 +45,25 @@ public class GoodsController {
 
     @RequestMapping(value = "update",method = RequestMethod.POST)
     public Object update(int goodid,String name,String describe,int num,double price){
-
+        Goods goods = goodsRepository.findOne(goodid);
+        goods.setName(name);
+        goods.setName(describe);
+        goods.setNum(num);
+        goods.setPrice(price);
+        goodsRepository.save(goods);
     return new JsonMes(1,"更新成功");
+    }
+
+    @RequestMapping("/findAll")
+    public Object findAll(){
+        return goodsRepository.findAll();
+    }
+
+    @RequestMapping("/delete")
+    public Object delete(int goodId){
+        Goods good = goodsRepository.findOne(goodId);
+
+        goodsRepository.delete(goodId);
+        return new JsonMes(1,"删除成功");
     }
 }

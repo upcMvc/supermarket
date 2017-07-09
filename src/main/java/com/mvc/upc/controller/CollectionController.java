@@ -15,13 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/Collection")
 public class CollectionController {
     @Autowired
-    CollectionRepository collectionRepository;
-    @Autowired
-    CollectionService collectionService;
+    private CollectionService collectionService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Object create(int userId, int goodId, String createTime) {
         collectionService.createCollection(userId, goodId, createTime);
         return new JsonMes(1, "收藏成功");
+    }
+
+    @RequestMapping("/delete")
+    public Object delete(int id) {
+        collectionService.deleteCollection(id);
+        return new JsonMes(1, "删除成功");
+    }
+
+    @RequestMapping("/find")
+    public Object findAllByUserIdOrderByCreateTime(int userId) {
+        return collectionService.findAllByUserIdOrderByCreateTime(userId);
     }
 }

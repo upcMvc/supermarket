@@ -5,9 +5,12 @@ import javax.persistence.*;
 
 /**
  * Created by chenzifeng on 2017/7/8.
+ * kind 分类：日常用品，零食，水果，饮品
  */
 @Entity
-@Table
+
+@Table(name="goods")
+
 public class Goods {
 
     @Id
@@ -17,20 +20,28 @@ public class Goods {
     private String name; //商品名
     private String kind; //商品分类
     private String imgPath;  //图片
-    private String describe;  //商品描述
+    private String describes;  //商品描述
     private int num;
-    private Double price;
+    private double price;
 
-    public Goods(String name, String kind, String imgPath, String describe, int num, Double price) {
+    public Goods(String name, String kinds, String imgPath, String describe, int num, double price) {
         this.name = name;
-        this.kind = kind;
+        this.kind = kinds;
         this.imgPath = imgPath;
-        this.describe = describe;
+        this.describes = describe;
         this.num = num;
         this.price = price;
     }
 
     public Goods() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -57,13 +68,15 @@ public class Goods {
         this.imgPath = imgPath;
     }
 
-    public String getDescribe() {
-        return describe;
+
+    public String getDescribes() {
+        return describes;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDescribes(String describes) {
+        this.describes = describes;
     }
+
 
     public int getNum() {
         return num;
@@ -73,15 +86,11 @@ public class Goods {
         this.num = num;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
-    }
-
-    public int getId() {
-        return id;
     }
 }
