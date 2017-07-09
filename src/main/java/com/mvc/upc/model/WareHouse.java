@@ -15,8 +15,7 @@ public class WareHouse {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    int userId;
+    
     private String location;//定位
     private String name;
     private int userId;
