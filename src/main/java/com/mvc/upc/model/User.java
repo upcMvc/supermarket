@@ -19,6 +19,7 @@ public class User {
     private String avatar;
     private int roleId;
 
+
     public int getId() {
         return id;
     }

@@ -2,6 +2,8 @@ package com.mvc.upc.service;
 
 
 import org.apache.commons.codec.binary.Base64;
+
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -16,14 +18,18 @@ public class Base64Service {
      * @Author:
      * @CreateTime:
      * @param imgStr base64编码字符串
-     * @param path 图片路径-具体到文件
+     *
      * @return
      */
 
-    public  boolean generateImage(String imgStr, String path) {
+    public  String  generateImage(String imgStr,String goodName,String suffix) {
         if(imgStr==null)
-            return false;
-
+            return null;
+        String path = "/image+/"+goodName+System.currentTimeMillis()+"."+suffix;
+        File file = new File("image");
+        if (!file.exists()){
+            file.mkdir();
+        }
         try{
             byte[] bytes = Base64.decodeBase64(imgStr);
             for (int i = 0; i<bytes.length;++i){
@@ -35,10 +41,10 @@ public class Base64Service {
             out.write(bytes);
             out.flush();
             out.close();
-            return true;
+            return path;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 }

@@ -5,6 +5,7 @@ import com.mvc.upc.model.Blacklist;
 import com.mvc.upc.repository.BlacklistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,7 +24,7 @@ public class BlacklistController {
      * @param reason
      * @return
      * */
-    @RequestMapping("/create")
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
     public Object create(int userId,String reason){
         //添加一个角色认证
 
