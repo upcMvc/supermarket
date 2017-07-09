@@ -9,5 +9,4 @@ import org.springframework.data.repository.CrudRepository;
 public interface ShoppingCartRepository extends CrudRepository<ShoppingCart, Integer> {
 
     Iterable<ShoppingCart> findAllByUserIdOrderByCreateTime(int userId);
-
 }
