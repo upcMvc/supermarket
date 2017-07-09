@@ -15,6 +15,7 @@ public class WareHouse {
 
     private String location;//定位
     private String name;
+    private int userId;
 
     public WareHouse(String location, String name) {
         this.location = location;
@@ -22,6 +23,18 @@ public class WareHouse {
     }
 
     public WareHouse() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getLocation() {
