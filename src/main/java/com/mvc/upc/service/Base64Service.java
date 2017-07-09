@@ -2,6 +2,7 @@ package com.mvc.upc.service;
 
 
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +12,7 @@ import java.io.OutputStream;
 /**
  * Created by chenzifeng on 2017/7/8.
  */
+@Service
 public class Base64Service {
 
     /**

@@ -3,6 +3,7 @@ package com.mvc.upc.controller;
 import com.mvc.upc.dto.JsonMes;
 import com.mvc.upc.model.Store;
 import com.mvc.upc.repository.StoreRepository;
+import com.mvc.upc.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,30 +21,29 @@ public class StoreController{
 
     @Autowired
     StoreRepository storeRepository;
+    @Autowired
+    StoreService storeService;
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
     public Object create(int goodid,int wareHouseId,int num){
-
-        Store store = new Store(goodid,wareHouseId,num);
-        storeRepository.save(store);
+        storeService.create(goodid,wareHouseId,num);
         return new  JsonMes(1,"创建成功");
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public Object update(int storeId,int num){
-        Store store = storeRepository.findOne(storeId);
-        store.setGoodNum(num);
-        storeRepository.save(store);
-
-        return new JsonMes(1,"更改成功");
+        if(storeService.update(storeId,num))
+            return new JsonMes(1,"更改成功");
+        else
+            return new JsonMes(0,"未找到该记录");
     }
+
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     public Object delete(int storeId){
-
-        Store store = storeRepository.findOne(storeId);
-        storeRepository.delete(store);
-
-        return new JsonMes(1,"删除成功");
+        if (storeService.delete(storeId))
+            return new JsonMes(1,"删除成功");
+        else
+            return new JsonMes(0,"未找到该记录");
     }
 
     @RequestMapping("/findGood")
