@@ -18,13 +18,23 @@ public class Store {
 
     private int goodId;
     private int wareHouseId;
+    private int goodNum;
 
-    public Store(int goodId, int wareHouseId) {
+    public Store(int goodId, int wareHouseId,int goodNum) {
         this.goodId = goodId;
         this.wareHouseId = wareHouseId;
+        this.goodNum = goodNum;
     }
 
     public Store() {
+    }
+
+    public int getGoodNum() {
+        return goodNum;
+    }
+
+    public void setGoodNum(int goodNum) {
+        this.goodNum = goodNum;
     }
 
     public int getId() {

@@ -13,24 +13,46 @@ public class ShopRecord {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int userId;
-    private int goodSid;
+    private int goodId;
     private String evalution;//评价
     private String createTime;
     private int number;
     private Double cost;
     private int wareHouseId; //仓库Id
+    private int status = -2;//初始化为-1,当为0派送中,-1订单失败,1已经签收但是未评价,2完成评价,3订单已被用户删除
 
-    public ShopRecord(int userId, int goodSid, String evalution, String createTime, int number, Double cost, int wareHouseId) {
+
+
+    public ShopRecord(int userId, int goodId, String createTime, int number, Double cost, int wareHouseId, int status) {
         this.userId = userId;
-        this.goodSid = goodSid;
+        this.goodId = goodId;
+        this.createTime = createTime;
+        this.number = number;
+        this.cost = cost;
+        this.wareHouseId = wareHouseId;
+        this.status = status;
+    }
+
+    public ShopRecord(int userId, int goodId, String evalution, String createTime, int number, Double cost, int wareHouseId, int status) {
+        this.userId = userId;
+        this.goodId = goodId;
         this.evalution = evalution;
         this.createTime = createTime;
         this.number = number;
         this.cost = cost;
         this.wareHouseId = wareHouseId;
+        this.status = status;
     }
 
     public ShopRecord() {
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getId() {
@@ -49,12 +71,12 @@ public class ShopRecord {
         this.userId = userId;
     }
 
-    public int getGoodSid() {
-        return goodSid;
+    public int getGoodId() {
+        return goodId;
     }
 
-    public void setGoodSid(int goodSid) {
-        this.goodSid = goodSid;
+    public void setGoodId(int goodId) {
+        this.goodId = goodId;
     }
 
     public String getEvalution() {
