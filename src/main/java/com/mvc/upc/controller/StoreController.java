@@ -32,7 +32,7 @@ public class StoreController{
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public Object update(int storeId,int num){
         Store store = storeRepository.findOne(storeId);
-        store.setNum(num);
+        store.setGoodNum(num);
         storeRepository.save(store);
 
         return new JsonMes(1,"更改成功");

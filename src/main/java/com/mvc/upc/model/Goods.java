@@ -5,10 +5,12 @@ import javax.persistence.*;
 
 /**
  * Created by chenzifeng on 2017/7/8.
- * kinds 分类：日常用品，零食，水果，饮品
+ * kind 分类：日常用品，零食，水果，饮品
  */
 @Entity
+
 @Table(name="goods")
+
 public class Goods {
 
     @Id
@@ -16,7 +18,7 @@ public class Goods {
     private int id;
 
     private String name; //商品名
-    private String kinds; //商品分类
+    private String kind; //商品分类
     private String imgPath;  //图片
     private String describes;  //商品描述
     private int num;
@@ -24,7 +26,7 @@ public class Goods {
 
     public Goods(String name, String kinds, String imgPath, String describe, int num, double price) {
         this.name = name;
-        this.kinds = kinds;
+        this.kind = kinds;
         this.imgPath = imgPath;
         this.describes = describe;
         this.num = num;
@@ -32,6 +34,14 @@ public class Goods {
     }
 
     public Goods() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -42,12 +52,12 @@ public class Goods {
         this.name = name;
     }
 
-    public String getKinds() {
-        return kinds;
+    public String getKind() {
+        return kind;
     }
 
-    public void setKinds(String kinds) {
-        this.kinds = kinds;
+    public void setKind(String kind) {
+        this.kind = kind;
     }
 
     public String getImgPath() {
@@ -58,6 +68,7 @@ public class Goods {
         this.imgPath = imgPath;
     }
 
+
     public String getDescribes() {
         return describes;
     }
@@ -65,6 +76,7 @@ public class Goods {
     public void setDescribes(String describes) {
         this.describes = describes;
     }
+
 
     public int getNum() {
         return num;
@@ -80,9 +92,5 @@ public class Goods {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public int getId() {
-        return id;
     }
 }
