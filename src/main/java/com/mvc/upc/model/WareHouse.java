@@ -15,10 +15,10 @@ public class WareHouse {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    int userId;
+    
     private String location;//定位
     private String name;
+    private int userId;
 
     public WareHouse(int userId,String location, String name) {
         this.userId = userId;
@@ -27,6 +27,18 @@ public class WareHouse {
     }
 
     public WareHouse() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getLocation() {
