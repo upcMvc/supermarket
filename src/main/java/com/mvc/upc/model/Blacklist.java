@@ -12,8 +12,8 @@ public class Blacklist {
     private int id;
 
     private int userId;
-    long createTime;
-    String reason;
+    private long createTime;
+    private String reason;
 
     public Blacklist(int userId, String reason) {
         this.userId = userId;

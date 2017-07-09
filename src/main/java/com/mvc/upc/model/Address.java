@@ -16,6 +16,14 @@ public class Address {
     private int userId;
     private String location;
 
+    public Address() {
+    }
+
+    public Address(int userId, String location) {
+        this.userId = userId;
+        this.location = location;
+    }
+
     public int getId() {
         return id;
     }

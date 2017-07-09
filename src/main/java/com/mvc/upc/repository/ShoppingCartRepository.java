@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ShoppingCartRepository extends CrudRepository<ShoppingCart, Integer> {
 
-    ShoppingCart[] findAllByUserIdOrderByCreateTime(int userId);
+    Iterable<ShoppingCart> findAllByUserIdOrderByCreateTime(int userId);
 
-    ShoppingCart findById(int id);
 }

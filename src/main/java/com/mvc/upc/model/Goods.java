@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Created by chenzifeng on 2017/7/8.
  */
 @Entity
-@Table
+@Table (name = "goods")
 public class Goods {
 
     @Id
@@ -17,20 +17,29 @@ public class Goods {
     private String name; //商品名
     private String kind; //商品分类
     private String imgPath;  //图片
-    private String describe;  //商品描述
+    private String describes;  //商品描述
     private int num;
     private Double price;
+
+
+    public Goods() {
+    }
 
     public Goods(String name, String kind, String imgPath, String describe, int num, Double price) {
         this.name = name;
         this.kind = kind;
         this.imgPath = imgPath;
-        this.describe = describe;
+        this.describes = describe;
         this.num = num;
         this.price = price;
     }
 
-    public Goods() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -58,11 +67,11 @@ public class Goods {
     }
 
     public String getDescribe() {
-        return describe;
+        return describes;
     }
 
     public void setDescribe(String describe) {
-        this.describe = describe;
+        this.describes = describe;
     }
 
     public int getNum() {
@@ -79,9 +88,5 @@ public class Goods {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public int getId() {
-        return id;
     }
 }
