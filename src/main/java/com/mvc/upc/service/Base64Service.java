@@ -15,11 +15,10 @@ public class Base64Service {
 
     /**
      * @Description: 将base64编码字符串转换为图片
-     * @Author:
-     * @CreateTime:
      * @param imgStr base64编码字符串
-     *
-     * @return
+     * @param goodName 商品名
+     * @param  suffix 图片的后缀名
+     * @return 生成文件的路径名
      */
 
     public  String  generateImage(String imgStr,String goodName,String suffix) {

@@ -8,4 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface BlacklistRepository extends CrudRepository<Blacklist,Integer> {
     Blacklist findByUserId(int userId);
+
 }

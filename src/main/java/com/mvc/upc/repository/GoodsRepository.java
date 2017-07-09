@@ -10,6 +10,6 @@ import java.util.Iterator;
  */
 public interface GoodsRepository extends CrudRepository<Goods,Integer> {
 
-    Iterator<Goods> findByKind(String kind);
-    Goods findByName(String name);
+    Iterator<Goods> findByKinds(String kinds);
+    Iterable<Goods> findByName(String name);
 }

@@ -5,23 +5,26 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 /**
- * Created by jay on 7/8/2017.
+ * Update by chenzifeng on 7/9/2017.
  * 商品存储数据表
+ * goodId:存储在商店的商品ID
+ * wareHouserId:
  */
 @Table(name = "store")
 @Entity
 public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
     private int id;
 
     private int goodId;
     private int wareHouseId;
+    int num;
 
-    public Store(int goodId, int wareHouseId) {
+    public Store(int goodId, int wareHouseId,int num) {
         this.goodId = goodId;
         this.wareHouseId = wareHouseId;
+        this.num = num;
     }
 
     public Store() {
@@ -49,5 +52,13 @@ public class Store {
 
     public void setWareHouseId(int wareHouseId) {
         this.wareHouseId = wareHouseId;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 }
