@@ -63,6 +63,7 @@ public class GoodsController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "更新客户所见的商品信息")
     @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="goodid",value = "商品id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query" ,name ="name",value = "商品名",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="describe",value = "商品描述",required = true,dataType = "String"),
@@ -81,11 +82,19 @@ public class GoodsController {
         return goodsRepository.findAll();
     }
 
+
+
+
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @ApiOperation(value = "更新客户所见的商品信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="goodid",value = "商品id",required = true,dataType = "int") })
     public Object delete(int goodId) {
         if (goodsService.delete(goodId))
             return new JsonMes(1, "删除成功");
         else
             return new JsonMes(0,"未找到该商品");
     }
+
 }
