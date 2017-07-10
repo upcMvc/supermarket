@@ -10,4 +10,5 @@ public interface ShoppingCartRepository extends CrudRepository<ShoppingCart, Int
 
     Iterable<ShoppingCart> findAllByUserIdOrderByCreateTime(int userId);
 
+    ShoppingCart findFirstById(int id);
 }

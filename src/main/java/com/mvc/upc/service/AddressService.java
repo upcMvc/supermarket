@@ -16,52 +16,59 @@ public class AddressService {
 
     /**
      * 创建一个地址
+     *
      * @param userId
      * @param location
      * @return
      */
-    public Address create(int userId,String location){
-        Address address=new Address();
+    public Address create(int userId, String location) {
+        Address address = new Address();
         address.setUserId(userId);
         address.setLocation(location);
         return addressRepository.save(address);
     }
 
     /**
-    根据userId查询地址
-    @param userId
-     @return address
+     * 根据userId查询地址
+     *
+     * @param userId
+     * @return address
      **/
-    public Iterable<Address> findByUserId(int userId){
+    public Iterable<Address> findByUserId(int userId) {
         return addressRepository.findByUserId(userId);
     }
 
     /**
      * 根据addressId查询某用户所有地址
+     *
      * @param addressId
      * @return address
      */
-    public Address findOne(int addressId){
+    public Address findOne(int addressId) {
         return addressRepository.findOne(addressId);
     }
 
     /**
      * 更新地址
-     * @param address
+     *
+     * @param id
+     * @param location
      * @return
      */
-    public Address update(Address address){
+    public Address update(int id, String location) {
+        Address address = addressRepository.findOne(id);
+        address.setLocation(location);
         return addressRepository.save(address);
     }
 
     /**
      * 删除一个地址
+     *
      * @param addressId
      */
-    public void delete(int addressId){
+    public void delete(int addressId) {
         addressRepository.delete(addressId);
     }
-
 
 
 }
