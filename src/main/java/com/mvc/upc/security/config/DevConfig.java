@@ -22,10 +22,10 @@ public class DevConfig {
     @PostConstruct
     public void adddevUserAndAuthority(){
 
-        Authority authority = authorityRepository.findFirstByName(AuthorityName.ROLE_ADMIN);
+        Authority authority = authorityRepository.findFirstByName(AuthorityName.ROLE_USER);
         if (authority == null){
             authority = new Authority();
-            authority.setName(AuthorityName.ROLE_ADMIN);
+            authority.setName(AuthorityName.ROLE_USER);
             authority = authorityRepository.save(authority);
         }
         User user = userRepository.findFirstByUsername("dev");
