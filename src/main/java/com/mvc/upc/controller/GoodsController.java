@@ -13,7 +13,7 @@ import sun.rmi.runtime.Log;
 
 /**
  * Created by chenzifeng on 2017/7/8.
- * 关于商品的 增·删·查·改
+ * 关于商品的 增·删·查·改 必须由相应的仓库管理员进行操作
  * 接口 ：
  * /goods/create
  * 参数：String name, String kind,String describe,
@@ -34,7 +34,7 @@ public class GoodsController {
     @Autowired
     GoodsService goodsService;
 
-    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Object create(String name, String kind, String describe, int num, double price, String reader, String suffix) {
         if (goodsService.create(name, kind, describe, num, price, reader, suffix))
             return new JsonMes(1, "创建成功");
@@ -42,7 +42,7 @@ public class GoodsController {
             return new JsonMes(-1, "创建失败");
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Object update(int goodid, String name, String describe, int num, double price) {
         if(goodsService.update(goodid,name,describe,num,price))
             return new JsonMes(1, "更新成功");

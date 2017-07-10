@@ -1,7 +1,9 @@
 package com.mvc.upc.controller;
 
 import com.mvc.upc.dto.JsonMes;
+import com.mvc.upc.model.Goods;
 import com.mvc.upc.model.Store;
+import com.mvc.upc.repository.GoodsRepository;
 import com.mvc.upc.repository.StoreRepository;
 import com.mvc.upc.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.spring.web.json.Json;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 
 /**
  * Update by chenzifeng on 7/9/2017
@@ -23,6 +30,9 @@ public class StoreController{
     StoreRepository storeRepository;
     @Autowired
     StoreService storeService;
+    @Autowired
+    GoodsRepository goodsRepository;
+
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
     public Object create(int goodid,int wareHouseId,int num){
@@ -53,7 +63,8 @@ public class StoreController{
 
     @RequestMapping("/findWH")
     public Object findWH(int whId){
-        return storeRepository.findByWareHouseId(whId);
+
+        return storeService.findWH(whId);
     }
     @RequestMapping("/findAll")
     public Object findAll(){

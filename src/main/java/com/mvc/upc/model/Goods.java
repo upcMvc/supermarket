@@ -24,9 +24,9 @@ public class Goods {
     private int num;
     private double price;
 
-    public Goods(String name, String kinds, String imgPath, String describe, int num, double price) {
+    public Goods(String name, String kind, String imgPath, String describe, int num, double price) {
         this.name = name;
-        this.kind = kinds;
+        this.kind = kind;
         this.imgPath = imgPath;
         this.describes = describe;
         this.num = num;
@@ -68,7 +68,6 @@ public class Goods {
         this.imgPath = imgPath;
     }
 
-
     public String getDescribes() {
         return describes;
     }
@@ -76,7 +75,6 @@ public class Goods {
     public void setDescribes(String describes) {
         this.describes = describes;
     }
-
 
     public int getNum() {
         return num;

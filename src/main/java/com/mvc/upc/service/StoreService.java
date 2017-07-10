@@ -1,12 +1,18 @@
 package com.mvc.upc.service;
 
 
+import com.mvc.upc.model.Goods;
 import com.mvc.upc.model.Store;
+import com.mvc.upc.repository.GoodsRepository;
 import com.mvc.upc.repository.StoreRepository;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by chenzifeng on 2017/7/9.
@@ -15,7 +21,8 @@ import org.springframework.stereotype.Service;
 public class StoreService {
     @Autowired
     StoreRepository storeRepository;
-
+    @Autowired
+    GoodsRepository goodsRepository;
 
     private final Log log = LogFactory.getLog(this.getClass());
 
@@ -61,5 +68,16 @@ public class StoreService {
         storeRepository.delete(store);
         return true;
     }
+    public List<Goods> findWH(int whId){
 
+        Iterable<Store> stores = storeRepository.findByWareHouseId(whId);
+        Iterator<Store> storeIterator = stores.iterator();
+        List<Goods> goods = new ArrayList<Goods>();
+        while(storeIterator.hasNext()){
+            Store s = storeIterator.next();
+            Goods good = goodsRepository.findOne(s.getGoodId());
+            goods.add(good);
+        }
+        return goods;
+    }
 }
