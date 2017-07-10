@@ -1,7 +1,5 @@
 package com.mvc.upc.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 /**
@@ -18,10 +16,18 @@ public class Collection {
     private int goodId;
     private String createTime;
 
-    public Collection(int userId, int goodId, String createTime) {
+    /**
+     * @param userId 用户id
+     * @param goodId 商品id
+     */
+
+    public Collection(int userId, int goodId) {
         this.userId = userId;
         this.goodId = goodId;
-        this.createTime = createTime;
+        this.createTime = "" + System.currentTimeMillis();
+    }
+
+    public Collection() {
     }
 
     public int getId() {
@@ -30,9 +36,6 @@ public class Collection {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Collection() {
     }
 
     public int getUserId() {
@@ -55,7 +58,7 @@ public class Collection {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setCreateTime() {
+        this.createTime = "" + System.currentTimeMillis();
     }
 }

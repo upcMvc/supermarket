@@ -1,8 +1,7 @@
 package com.mvc.upc.security.controller;
 
 import com.mvc.upc.dto.SwaggerParameter;
-import com.mvc.upc.security.model.User;
-import com.mvc.upc.security.model.UserRepository;
+import com.mvc.upc.security.model.*;
 import com.mvc.upc.security.service.JwtAuthenticationResponse;
 import com.mvc.upc.security.service.JwtTokenUtil;
 import com.mvc.upc.service.Base64Service;
@@ -31,6 +30,9 @@ public class RegistController {
     private UserRepository userRepository;
 
     @Autowired
+    private AuthorityRepository authorityRepository;
+
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Value("${jwt.header}")
@@ -41,7 +43,6 @@ public class RegistController {
 
     @ApiOperation(value = "创建app", notes = "")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "imgStr", value = "图片base64", required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "suffix",value = "图片格式",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "username",value = "用户名",required = true,dataType = "String"),
@@ -60,6 +61,13 @@ public class RegistController {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         password = bCryptPasswordEncoder.encode(password);
         user.setPassword(password);
+        Authority authority = authorityRepository.findFirstByName(AuthorityName.ROLE_USER);
+        if(authority == null){
+            authority = new Authority();
+            authority.setName(AuthorityName.ROLE_USER);
+            authority = authorityRepository.save(authority);
+        }
+        user.addAuthorty(authority);
         userRepository.save(user);
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         final String token = jwtTokenUtil.generateToken(userDetails, device);
