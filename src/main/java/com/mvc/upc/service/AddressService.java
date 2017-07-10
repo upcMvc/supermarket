@@ -39,7 +39,7 @@ public class AddressService {
     }
 
     /**
-     * 根据addressId查询某用户所有地址
+     * 根据addressId查询某用户地址
      *
      * @param addressId
      * @return address
