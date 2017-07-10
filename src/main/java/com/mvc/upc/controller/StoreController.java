@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,7 @@ import java.util.List;
  */
 @RequestMapping("/store")
 @RestController
+@PreAuthorize("hasAnyRole({'ROLE_ADMIN','ROLE_WAREHOUSEADMIN'})")
 public class StoreController{
 
     @Autowired
@@ -39,12 +41,25 @@ public class StoreController{
 
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @ApiOperation(value = "创建仓库存储")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = "goodid",value = "商品id",required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query",name = "wareHouseId",value = "仓库id",required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query",name = "num",value = "存储数量",required = true,dataType = "int")
+    })
     public Object create(int goodid,int wareHouseId,int num){
         storeService.create(goodid,wareHouseId,num);
         return new  JsonMes(1,"创建成功");
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @ApiOperation(value = "更新仓库存储")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = "storeId",value = "存储id",required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query",name = "num",value = "存储数量",required = true,dataType = "int")
+    })
     public Object update(int storeId,int num){
         if(storeService.update(storeId,num))
             return new JsonMes(1,"更改成功");
@@ -53,6 +68,11 @@ public class StoreController{
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @ApiOperation(value = "删除仓库存储")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = "storeId",value = "存储id",required = true,dataType = "int")
+    })
     public Object delete(int storeId){
         if (storeService.delete(storeId))
             return new JsonMes(1,"删除成功");
@@ -61,6 +81,11 @@ public class StoreController{
     }
 
     @RequestMapping("/findGood")
+    @ApiOperation(value = "查看仓库货物存储")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = "goodid",value = "商品id",required = true,dataType = "int")
+    })
     public Object findGood(int goodid){
         return storeRepository.findByGoodId(goodid);
     }
