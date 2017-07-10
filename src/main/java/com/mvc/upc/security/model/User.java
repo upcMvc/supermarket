@@ -21,6 +21,7 @@ public class User {
 
     private String phone;
     private String avatar;
+    private String email;
 
     private Boolean enabled;
     private Date lastPasswordResetDate;
@@ -53,6 +54,13 @@ public class User {
 
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public int getId() {
         return id;

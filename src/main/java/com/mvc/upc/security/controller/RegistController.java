@@ -1,5 +1,6 @@
 package com.mvc.upc.security.controller;
 
+import com.mvc.upc.dto.JsonMes;
 import com.mvc.upc.dto.SwaggerParameter;
 import com.mvc.upc.security.model.*;
 import com.mvc.upc.security.service.JwtAuthenticationResponse;
@@ -54,7 +55,11 @@ public class RegistController {
     public ResponseEntity<?> regist(String imgStr,String suffix,String username,String password,String phone, Device device){
         Base64Service base64Service = new Base64Service();
         String avatar = base64Service.generateImage(imgStr,"avatar",suffix);
-        User user = new User();
+        User user = userRepository.findFirstByUsername(username);
+        if(user != null){
+            return ResponseEntity.ok(new JsonMes(-1,"用户名已存在"));
+        }
+        user = new User();
         user.setUsername(username);
         user.setPhone(phone);
         user.setAvatar(avatar);

@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Created by lylllcc on 2017/7/8.
  */
-public class JwtUser implements UserDetails{
+public class JwtUser implements UserDetails {
 
     private int id;
     private String username;
@@ -18,6 +18,7 @@ public class JwtUser implements UserDetails{
 
     private String phone;
     private String avatar;
+    private String email;
 
     private final Collection<? extends GrantedAuthority> authorities;
 
@@ -25,13 +26,14 @@ public class JwtUser implements UserDetails{
     private final Date lastPasswordResetDate;
 
 
-    public JwtUser(String username, String password, String phone, String avatar, Collection<? extends GrantedAuthority> authorities) {
+    public JwtUser(String username, String password, String phone, String avatar, String email, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
         this.phone = phone;
         this.avatar = avatar;
         this.authorities = authorities;
         this.lastPasswordResetDate = null;
+        this.email = email;
     }
 
     @Override
