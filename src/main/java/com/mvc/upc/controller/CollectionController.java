@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by jay on 7/8/2017.
+ * 商品收藏的增/删/查
+ * <p>
+ * api：
+ * create：新增商品收藏
+ * delete：删除收藏的商品
+ * find：返回用户收藏的所有商品
  */
 @RestController
 @RequestMapping("/Collection")
