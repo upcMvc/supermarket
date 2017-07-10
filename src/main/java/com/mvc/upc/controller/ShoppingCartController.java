@@ -8,16 +8,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by jay on 7/8/2017.
+ * 购物车中商品的增/删/查/改
+ * <p>
+ * api:
+ * create:创建购物车商品
+ * delete:根据id删除购物车商品
+ * find:返回用户购物车中所有商品
+ * update:修改购物车中商品的个数并更新添加时间
  */
 @RestController
 @RequestMapping("ShoppingCart")
 public class ShoppingCartController {
+    private int userId;
+
     @Autowired
     private ShoppingCartService shoppingCartService;
 
     @RequestMapping("/create")
-    public Object create(int userId, int goodId, String createTime) {
-        shoppingCartService.createShoppingCart(userId, goodId, createTime);
+    public Object create(int userId, int goodId, int num, String createTime) {
+        shoppingCartService.createShoppingCart(userId, goodId, num, createTime);
         return new JsonMes(1, "添加购物车成功");
     }
 
@@ -32,4 +41,9 @@ public class ShoppingCartController {
         return shoppingCartService.findAllByUserIdOrderByCreateTime(userId);
     }
 
+    @RequestMapping("/update")
+    public Object update(int id, int num, String createTime) {
+        shoppingCartService.updateShoppingCart(id, num, createTime);
+        return new JsonMes(1, "修改成功");
+    }
 }

@@ -13,15 +13,14 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
+  http:
+    multipart:
+      max-file-size: 20Mb
+      max-request-size: 20Mb
 jwt:
   header: Authorization
   secret: mySecret
   expiration: 604800
-  appname: AppName
-  route:
-    authentication:
-      path: auth
-      refresh: refresh
 server:
   port: 8082
 

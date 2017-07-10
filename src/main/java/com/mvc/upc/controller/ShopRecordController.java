@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by jay on 7/8/2017.
+ * 购买记录的增/删/查
+ * <p>
+ * api：
+ * create：创建购买订单
+ * delete：根据id删除购买记录（仅将状态标记为用户已删除）
+ * find：返回用户的所有订单
  */
 @RestController
 @RequestMapping("/ShopRecord")

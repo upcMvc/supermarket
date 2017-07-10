@@ -17,11 +17,13 @@ public class ShoppingCart {
     private int id;
     private int userId;
     private int goodId;
+    private int num;
     private String createTime;
 
-    public ShoppingCart(int userId, int goodId, String createTime) {
+    public ShoppingCart(int userId, int goodId,int num, String createTime) {
         this.userId = userId;
         this.goodId = goodId;
+        this.num = num;
         this.createTime = createTime;
     }
 
@@ -50,6 +52,14 @@ public class ShoppingCart {
 
     public void setGoodId(int goodId) {
         this.goodId = goodId;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public String getCreateTime() {

@@ -1,6 +1,7 @@
 package com.mvc.upc.security.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +42,15 @@ public class User {
         this.avatar = avatar;
     }
 
+
     public User() {
+    }
+
+    public void addAuthorty(Authority authority){
+        List<Authority> authorities1 = new ArrayList<>();
+        authorities1.add(authority);
+        this.authorities = authorities1;
+
     }
 
     public int getId() {
