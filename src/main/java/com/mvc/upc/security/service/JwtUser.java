@@ -42,12 +42,12 @@ public class JwtUser implements UserDetails{
     @JsonIgnore
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @JsonIgnore
@@ -70,7 +70,7 @@ public class JwtUser implements UserDetails{
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public int getId() {

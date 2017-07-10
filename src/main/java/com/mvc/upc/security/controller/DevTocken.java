@@ -26,6 +26,7 @@ public class DevTocken {
     @GetMapping("/dev/user")
     public String genToken(){
         final UserDetails userDetails = userDetailsService.loadUserByUsername("dev");
+
         final String token = jwtTokenUtil.generateToken(userDetails);
         return token;
     }

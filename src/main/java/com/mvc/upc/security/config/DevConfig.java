@@ -28,7 +28,7 @@ public class DevConfig {
             authority.setName(AuthorityName.ROLE_ADMIN);
             authority = authorityRepository.save(authority);
         }
-        User user = userRepository.findByUsername("dev");
+        User user = userRepository.findFirstByUsername("dev");
         if (user == null){
             user = new User();
             user.setUsername("dev");
