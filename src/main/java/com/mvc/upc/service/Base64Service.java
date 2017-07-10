@@ -25,7 +25,7 @@ public class Base64Service {
     public  String  generateImage(String imgStr,String goodName,String suffix) {
         if(imgStr==null)
             return null;
-        String path = "/image+/"+goodName+System.currentTimeMillis()+"."+suffix;
+        String path = "/image/"+goodName+System.currentTimeMillis()+"."+suffix;
         File file = new File("image");
         if (!file.exists()){
             file.mkdir();
