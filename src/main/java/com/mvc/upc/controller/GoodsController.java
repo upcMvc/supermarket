@@ -1,10 +1,15 @@
 package com.mvc.upc.controller;
 
 import com.mvc.upc.dto.JsonMes;
+import com.mvc.upc.dto.SwaggerParameter;
 import com.mvc.upc.model.Goods;
 import com.mvc.upc.repository.GoodsRepository;
 import com.mvc.upc.service.Base64Service;
 import com.mvc.upc.service.GoodsService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.models.Swagger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +40,17 @@ public class GoodsController {
     GoodsService goodsService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ApiOperation(value = "添加顾客所见商品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="name",value = "商品名",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="kind",value = "商品种类",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="describe",value = "商品描述",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="num",value = "商品数量",required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query" ,name ="price",value = "商品单价",required = true,dataType = "double"),
+            @ApiImplicitParam(paramType = "query" ,name ="reader",value = "图片base64转码",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="suffix",value = "图片后缀名",required = true,dataType = "String")
+    })
     public Object create(String name, String kind, String describe, int num, double price, String reader, String suffix) {
         if (goodsService.create(name, kind, describe, num, price, reader, suffix))
             return new JsonMes(1, "创建成功");
@@ -42,7 +58,17 @@ public class GoodsController {
             return new JsonMes(-1, "创建失败");
     }
 
+
+
     @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ApiOperation(value = "更新客户所见的商品信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query" ,name ="goodid",value = "商品id",required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query" ,name ="name",value = "商品名",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="describe",value = "商品描述",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="num",value = "商品数量",required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query" ,name ="price",value = "商品单价",required = true,dataType = "double")
+    })
     public Object update(int goodid, String name, String describe, int num, double price) {
         if(goodsService.update(goodid,name,describe,num,price))
             return new JsonMes(1, "更新成功");
@@ -57,7 +83,9 @@ public class GoodsController {
 
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     public Object delete(int goodId) {
-
-        return new JsonMes(1, "删除成功");
+        if (goodsService.delete(goodId))
+            return new JsonMes(1, "删除成功");
+        else
+            return new JsonMes(0,"未找到该商品");
     }
 }

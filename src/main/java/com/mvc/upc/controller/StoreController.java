@@ -1,11 +1,15 @@
 package com.mvc.upc.controller;
 
 import com.mvc.upc.dto.JsonMes;
+import com.mvc.upc.dto.SwaggerParameter;
 import com.mvc.upc.model.Goods;
 import com.mvc.upc.model.Store;
 import com.mvc.upc.repository.GoodsRepository;
 import com.mvc.upc.repository.StoreRepository;
 import com.mvc.upc.service.StoreService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +66,10 @@ public class StoreController{
     }
 
     @RequestMapping("/findWH")
+    @ApiOperation(value = "查询仓库物品", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = "whId", value = "仓库ID", required = true,dataType = "int")})
     public Object findWH(int whId){
 
         return storeService.findWH(whId);
