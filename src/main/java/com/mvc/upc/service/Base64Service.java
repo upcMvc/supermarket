@@ -2,6 +2,8 @@ package com.mvc.upc.service;
 
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -14,7 +16,7 @@ import java.io.OutputStream;
  */
 @Service
 public class Base64Service {
-
+    private final Log log = LogFactory.getLog(this.getClass());
     /**
      * @Description: 将base64编码字符串转换为图片
      * @param imgStr base64编码字符串
@@ -24,13 +26,16 @@ public class Base64Service {
      */
 
     public  String  generateImage(String imgStr,String goodName,String suffix) {
+
         if(imgStr==null)
             return null;
-        String path = "/image+/"+goodName+System.currentTimeMillis()+"."+suffix;
+
         File file = new File("image");
         if (!file.exists()){
             file.mkdir();
         }
+        String path = "image/"+goodName+System.currentTimeMillis()+"."+suffix;
+        log.debug("path:"+path);
         try{
             byte[] bytes = Base64.decodeBase64(imgStr);
             for (int i = 0; i<bytes.length;++i){
