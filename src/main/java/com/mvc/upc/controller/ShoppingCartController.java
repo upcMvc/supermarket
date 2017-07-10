@@ -19,21 +19,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("ShoppingCart")
 public class ShoppingCartController {
-    private int userId;
 
     @Autowired
     private ShoppingCartService shoppingCartService;
 
     @RequestMapping("/create")
-    public Object create(int userId, int goodId, int num, String createTime) {
-        shoppingCartService.createShoppingCart(userId, goodId, num, createTime);
+    public Object create(int userId, int goodId, int num) {
+        shoppingCartService.createShoppingCart(userId, goodId, num);
         return new JsonMes(1, "添加购物车成功");
     }
 
     @RequestMapping("/delete")
     public Object delete(int id) {
-        shoppingCartService.deleteShoppingCart(id);
-        return new JsonMes(1, "删除购物车成功");
+        boolean ver = shoppingCartService.deleteShoppingCart(id);
+        if (ver) {
+            return new JsonMes(1, "删除购物车商品成功");
+        } else {
+            return new JsonMes(0, "删除购物车商品失败");
+        }
     }
 
     @RequestMapping("/find")
@@ -42,8 +45,12 @@ public class ShoppingCartController {
     }
 
     @RequestMapping("/update")
-    public Object update(int id, int num, String createTime) {
-        shoppingCartService.updateShoppingCart(id, num, createTime);
-        return new JsonMes(1, "修改成功");
+    public Object update(int id, int num) {
+        boolean ver = shoppingCartService.updateShoppingCart(id, num);
+        if (ver) {
+            return new JsonMes(1, "修改成功");
+        } else {
+            return new JsonMes(0, "修改失败");
+        }
     }
 }

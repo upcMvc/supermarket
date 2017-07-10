@@ -17,34 +17,39 @@ public class ShopRecord {
     private String evalution;//评价
     private String createTime;
     private int number;
-    private Double cost;
+    private double cost;
     private int wareHouseId; //仓库Id
-    private int status = -2;//初始化为-1,当为0派送中,-1订单失败,1已经签收但是未评价,2完成评价,3订单已被用户删除
+    private int status = -2;//初始化为-2,当为0派送中,-1订单失败,1已经签收但是未评价,2完成评价,3订单已被用户删除
+    private String addressId;
 
-
-
-    public ShopRecord(int userId, int goodId, String createTime, int number, Double cost, int wareHouseId, int status) {
+    /**
+     * @param userId      用户id
+     * @param goodId      商品id
+     * @param number      该商品的购买数量
+     * @param cost        该购买记录的花费
+     * @param wareHouseId 商品发货仓库
+     * @param status      订单状态
+     * @param addressId   送货地址id
+     */
+    public ShopRecord(int userId, int goodId, int number, double cost, int wareHouseId, int status, String addressId) {
         this.userId = userId;
         this.goodId = goodId;
-        this.createTime = createTime;
-        this.number = number;
+        this.createTime = "" + System.currentTimeMillis();
         this.cost = cost;
         this.wareHouseId = wareHouseId;
         this.status = status;
-    }
-
-    public ShopRecord(int userId, int goodId, String evalution, String createTime, int number, Double cost, int wareHouseId, int status) {
-        this.userId = userId;
-        this.goodId = goodId;
-        this.evalution = evalution;
-        this.createTime = createTime;
-        this.number = number;
-        this.cost = cost;
-        this.wareHouseId = wareHouseId;
-        this.status = status;
+        this.addressId = addressId;
     }
 
     public ShopRecord() {
+    }
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
     }
 
     public int getStatus() {
@@ -91,8 +96,8 @@ public class ShopRecord {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setCreateTime() {
+        this.createTime = "" + System.currentTimeMillis();
     }
 
     public int getNumber() {
@@ -103,11 +108,11 @@ public class ShopRecord {
         this.number = number;
     }
 
-    public Double getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(Double cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 

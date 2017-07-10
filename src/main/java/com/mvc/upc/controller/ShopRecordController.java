@@ -1,6 +1,7 @@
 package com.mvc.upc.controller;
 
 import com.mvc.upc.dto.JsonMes;
+import com.mvc.upc.model.ShopRecord;
 import com.mvc.upc.service.ShopRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * create：创建购买订单
  * delete：根据id删除购买记录（仅将状态标记为用户已删除）
  * find：返回用户的所有订单
+ * evalution：进行评论
  */
 @RestController
 @RequestMapping("/ShopRecord")
@@ -22,18 +24,38 @@ public class ShopRecordController {
     private ShopRecordService shopRecordService;
 
     @RequestMapping("/create")
-    public Object create(int userId, int goodId, String createTimem, int number, double cost, int wareHouseId, int status) {
-        shopRecordService.createShopRecord(userId, goodId, createTimem, number, cost, wareHouseId, 2);
-        return new JsonMes(1, "创建订单成功");
+    public Object create(int userId, int goodId, int number, double cost, int wareHouseId, int status,String addressId) {
+        ShopRecord shopRecord = shopRecordService.createShopRecord(userId, goodId, number, cost, wareHouseId, 2, addressId);
+        if (shopRecord!=null) {
+            return new JsonMes(1, "创建订单成功");
+        } else {
+            return new JsonMes(0, "创建订单失败");
+        }
     }
 
+    @RequestMapping("/delete")
     public Object delete(int id) {
-        shopRecordService.deleteShopRecord(id);
-        return new JsonMes(1, "删除订单成功");
+        boolean ver = shopRecordService.deleteShopRecord(id);
+        if (ver) {
+            return new JsonMes(1, "删除订单成功");
+        } else {
+            return new JsonMes(0, "删除订单失败");
+        }
     }
 
+    @RequestMapping("/find")
     public Object find(int userId) {
         return shopRecordService.findAllByUserIdAndStatusIsLessThanOrderByCreateTime(userId);
     }
 
+    @RequestMapping("/evalution")
+    public Object evalution(int id, String evalution) {
+        boolean ver = shopRecordService.evalution(id, evalution);
+        if (ver) {
+            return new JsonMes(1, "评价成功");
+        } else {
+            return new JsonMes(0, "评价失败");
+        }
+    }
 }
+
