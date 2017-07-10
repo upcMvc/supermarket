@@ -9,13 +9,16 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by chenzifeng on 2017/7/8.
+ * 所有接口都需要管理员权限
  */
 @RequestMapping("/blacklist")
 @RestController
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class BlacklistController {
 
     @Autowired
@@ -45,10 +48,7 @@ public class BlacklistController {
         return new JsonMes(1,"删除成功");
     }
 
-    /**
-     * 管理员权限
-     * @return
-     */
+
     @ApiOperation(value = "展示黑名单")
     @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String")
     @GetMapping("/findall")
