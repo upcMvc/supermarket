@@ -1,8 +1,5 @@
 package com.mvc.upc.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jdk.nashorn.internal.ir.annotations.Ignore;
-
 import javax.persistence.*;
 
 /**
@@ -20,11 +17,16 @@ public class ShoppingCart {
     private int num;
     private String createTime;
 
-    public ShoppingCart(int userId, int goodId,int num, String createTime) {
+    /**
+     * @param userId     用户id
+     * @param goodId     商品id
+     * @param num        购物车中商品的数目
+     */
+    public ShoppingCart(int userId, int goodId, int num) {
         this.userId = userId;
         this.goodId = goodId;
         this.num = num;
-        this.createTime = createTime;
+        this.createTime = "" + System.currentTimeMillis();
     }
 
     public ShoppingCart() {
@@ -66,7 +68,7 @@ public class ShoppingCart {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setCreateTime() {
+        this.createTime = "" + System.currentTimeMillis();
     }
 }

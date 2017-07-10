@@ -24,15 +24,18 @@ public class CollectionController {
     private CollectionService collectionService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Object create(int userId, int goodId, String createTime) {
-        collectionService.createCollection(userId, goodId, createTime);
+    public Object create(int userId, int goodId) {
+        collectionService.createCollection(userId, goodId);
         return new JsonMes(1, "收藏成功");
     }
 
     @RequestMapping("/delete")
     public Object delete(int id) {
-        collectionService.deleteCollection(id);
-        return new JsonMes(1, "删除成功");
+        boolean ver=collectionService.deleteCollection(id);
+        if (ver) {
+            return new JsonMes(1, "删除成功");
+        }
+        return new JsonMes(0, "删除失败");
     }
 
     @RequestMapping("/find")
