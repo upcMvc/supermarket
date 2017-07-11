@@ -13,7 +13,8 @@ public class WareHouseService {
 
     @Autowired
     WareHouseRepository wareHouseRepository;
-
+    @Autowired
+    LocationService locationService;
     /**
      * 创建一个仓库
      * @param location
@@ -21,11 +22,10 @@ public class WareHouseService {
      * @param userId
      * @return
      */
-    public WareHouse create(String location,String name,int userId){
-        WareHouse wareHouse=new WareHouse();
-        wareHouse.setLocation(location);
-        wareHouse.setName(name);
-        wareHouse.setUserId(userId);
+    public WareHouse create(String location,String name,int userId,String city,String coordinate){
+        double longitude =locationService.subLocation(coordinate)[0];
+        double latitude = locationService.subLocation(coordinate)[1];
+        WareHouse wareHouse=new WareHouse(userId,location,name,city,longitude,latitude);
         return wareHouseRepository.save(wareHouse);
     }
 
