@@ -26,7 +26,8 @@ public class JwtUser implements UserDetails {
     private final Date lastPasswordResetDate;
 
 
-    public JwtUser(String username, String password, String phone, String avatar, String email, Collection<? extends GrantedAuthority> authorities) {
+    public JwtUser(int id,String username, String password, String phone, String avatar, String email, Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.phone = phone;

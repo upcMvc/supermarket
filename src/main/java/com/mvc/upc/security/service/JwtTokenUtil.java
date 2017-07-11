@@ -24,6 +24,7 @@ public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -3301605591108950415L;
 
     static final String CLAIM_KEY_USERNAME = "sub";
+    static final String CLAIM_KEY_USERID = "id";
     static final String CLAIM_KEY_AUDIENCE = "audience";
     static final String CLAIM_KEY_CREATED = "created";
     static final String CLAIM_KEY_EXPIRED = "exp";
@@ -49,6 +50,17 @@ public class JwtTokenUtil implements Serializable {
             username = null;
         }
         return username;
+    }
+
+    public int getUserIdFromToken(String token) {
+        String id;
+        try {
+            final Claims claims = getClaimsFromToken(token);
+            id = claims.get(CLAIM_KEY_USERID).toString();
+        } catch (Exception e) {
+            id = "0";
+        }
+        return Integer.valueOf(id);
     }
 
     public Date getCreatedDateFromToken(String token) {
@@ -124,21 +136,22 @@ public class JwtTokenUtil implements Serializable {
     }
 
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(JwtUser userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_CREATED, new Date());
+        claims.put(CLAIM_KEY_USERID, userDetails.getId());
         return doGenerateToken(claims);
     }
 
-    public String generateToken(UserDetails userDetails, Device device) {
+    public String generateToken(JwtUser userDetails, Device device) {
         Map<String, Object> claims = new HashMap<>();
 
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_AUDIENCE, generateAudience(device));
 
         claims.put(CLAIM_KEY_CREATED, new Date());
-
+        claims.put(CLAIM_KEY_USERID, userDetails.getId());
         return doGenerateToken(claims);
     }
 

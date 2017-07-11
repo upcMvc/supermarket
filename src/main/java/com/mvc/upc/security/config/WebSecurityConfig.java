@@ -81,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/images/**"
                 ).permitAll()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/regist/**").permitAll()
+                .antMatchers("/user/**").permitAll()
                 .antMatchers("/dev/**").permitAll()
                 .antMatchers("/goods/findAll").permitAll()
                 .anyRequest().authenticated();

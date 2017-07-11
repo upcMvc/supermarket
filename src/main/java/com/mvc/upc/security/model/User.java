@@ -1,5 +1,7 @@
 package com.mvc.upc.security.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,16 +19,21 @@ public class User {
     private int id;
 
     private String username;
+
+    @JsonIgnore
     private String password;
 
     private String phone;
     private String avatar;
     private String email;
 
+    @JsonIgnore
     private Boolean enabled;
+    @JsonIgnore
     private Date lastPasswordResetDate;
 
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_authority",

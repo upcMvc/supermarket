@@ -21,6 +21,9 @@ jwt:
   header: Authorization
   secret: mySecret
   expiration: 604800
+app:
+  config:
+    server: http://localhost:8082
 server:
   port: 8082
 
