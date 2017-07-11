@@ -8,4 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface WareHouseRepository extends CrudRepository<WareHouse,Integer> {
     WareHouse findFirstByUserId(int userId);
+    Iterable<WareHouse> findAllByCity(String city);
 }

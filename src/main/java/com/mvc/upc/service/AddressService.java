@@ -19,12 +19,18 @@ public class AddressService {
      *
      * @param userId
      * @param location
+     * @param latitude
+     * @param longitude
+     * @param city
      * @return
      */
-    public Address create(int userId, String location) {
+    public Address create(int userId, String location, double latitude, double longitude, String city) {
         Address address = new Address();
         address.setUserId(userId);
         address.setLocation(location);
+        address.setLatitude(latitude);
+        address.setLongitude(longitude);
+        address.setCity(city);
         return addressRepository.save(address);
     }
 
@@ -53,11 +59,17 @@ public class AddressService {
      *
      * @param id
      * @param location
+     * @param latitude
+     * @param longitude
+     * @param city
      * @return
      */
-    public Address update(int id, String location) {
+    public Address update(int id, String location,double latitude, double longitude, String city) {
         Address address = addressRepository.findOne(id);
         address.setLocation(location);
+        address.setCity(city);
+        address.setLongitude(longitude);
+        address.setLatitude(latitude);
         return addressRepository.save(address);
     }
 
