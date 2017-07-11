@@ -31,13 +31,14 @@ public class ShopRecord {
      * @param status      订单状态
      * @param addressId   送货地址id
      */
-    public ShopRecord(int userId, int goodId, int number, double cost, int wareHouseId, int status, String addressId) {
+    public ShopRecord(int userId, int goodId, int number, double cost, int wareHouseId, String addressId) {
         this.userId = userId;
         this.goodId = goodId;
+        this.number = number;
         this.createTime = "" + System.currentTimeMillis();
         this.cost = cost;
         this.wareHouseId = wareHouseId;
-        this.status = status;
+        this.status = 2;
         this.addressId = addressId;
     }
 
