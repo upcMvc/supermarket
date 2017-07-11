@@ -26,11 +26,15 @@ public class AddressController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="userId",value = "用户Id",required = true,dataType = "int"),
-            @ApiImplicitParam(paramType = "query",name ="location",value = "地址",required = true,dataType = "String")
+            @ApiImplicitParam(paramType = "query",name ="location",value = "地址",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name ="latitude",value = "纬度",required = true,dataType = "double"),
+            @ApiImplicitParam(paramType = "query",name ="longitude",value = "经度",required = true,dataType = "double"),
+            @ApiImplicitParam(paramType = "query",name ="city",value = "城市",required = true,dataType = "String")
+
     })
     @PostMapping("/create")
-    public Object create(int userId,String location){
-        return addressService.create(userId,location);
+    public Object create(int userId,String location, double latitude, double longitude, String city){
+        return addressService.create(userId,location,latitude,longitude,city);
     }
 
     @ApiOperation(value = "查找某用户所有地址")
@@ -59,11 +63,15 @@ public class AddressController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="addressId",value = "地址Id",required = true,dataType = "int"),
-            @ApiImplicitParam(paramType = "query",name ="location",value = "地址",required = true,dataType = "String")
+            @ApiImplicitParam(paramType = "query",name ="location",value = "地址",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name ="latitude",value = "纬度",required = true,dataType = "double"),
+            @ApiImplicitParam(paramType = "query",name ="longitude",value = "经度",required = true,dataType = "double"),
+            @ApiImplicitParam(paramType = "query",name ="city",value = "城市",required = true,dataType = "String")
+
     })
     @PostMapping("/update")
-    public Object update(int addressId,String location){
-        return addressService.update(addressId,location);
+    public Object update(int addressId,String location,double latitude, double longitude, String city){
+        return addressService.update(addressId,location,latitude,longitude,city);
     }
 
     @ApiOperation(value = "查找某一地址")
