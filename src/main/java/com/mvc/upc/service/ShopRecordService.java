@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShopRecordService {
     @Autowired
+    private LocationService locationService;
+    @Autowired
     private ShopRecordRepository shopRecordRepository;
     private final Log log = LogFactory.getLog(this.getClass());
 
@@ -21,6 +23,7 @@ public class ShopRecordService {
      */
     public ShopRecord createShopRecord(int userId, int goodId, int number, double cost, int addressId) {
         ShopRecord shopRecord = new ShopRecord(userId, goodId, number, cost, addressId);
+        shopRecord.setWareHouseId(locationService.compareCoordinate(addressId));
         return shopRecordRepository.save(shopRecord);
     }
 
