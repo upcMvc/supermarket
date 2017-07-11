@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CollectionTest {
-    private int testUserId;
+    private int testUserId=12506;
     @Autowired
     private CollectionService collectionService;
     private Iterable<Collection> collections;

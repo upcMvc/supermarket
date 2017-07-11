@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 public class ShopRecord {
     @Autowired
-    LocationService locationService;
+    private LocationService locationService;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -25,7 +25,7 @@ public class ShopRecord {
     private double cost;
     private int wareHouseId; //仓库Id
     private int status = -2;//初始化为-2,当为0派送中,-1订单失败,1已经签收但是未评价,2完成评价,3订单已被用户删除
-    private String addressId;
+    private int  addressId;
 
     /**
      * @param userId      用户id
@@ -35,7 +35,7 @@ public class ShopRecord {
      * @param wareHouseId 商品发货仓库
      * @param addressId   送货地址id
      */
-    public ShopRecord(int userId, int goodId, int number, double cost, String addressId) {
+    public ShopRecord(int userId, int goodId, int number, double cost, int addressId) {
         this.userId = userId;
         this.goodId = goodId;
         this.number = number;
@@ -49,11 +49,11 @@ public class ShopRecord {
     public ShopRecord() {
     }
 
-    public String getAddressId() {
+    public int getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(String addressId) {
+    public void setAddressId(int addressId) {
         this.addressId = addressId;
     }
 

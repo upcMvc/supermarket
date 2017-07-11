@@ -19,7 +19,7 @@ public class ShopRecordService {
     /**
      * 由于评价在订单交易成功后才进行，所以在此不进行传值
      */
-    public ShopRecord createShopRecord(int userId, int goodId, int number, double cost, String addressId) {
+    public ShopRecord createShopRecord(int userId, int goodId, int number, double cost, int addressId) {
         ShopRecord shopRecord = new ShopRecord(userId, goodId, number, cost, addressId);
         return shopRecordRepository.save(shopRecord);
     }
