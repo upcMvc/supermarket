@@ -19,11 +19,17 @@ public class WareHouse {
     private String location;//定位
     private String name;
     private int userId;
+    private String city;
+    private double longitude;
+    private double latitude;
 
-    public WareHouse(int userId,String location, String name) {
+    public WareHouse(int userId,String location, String name,String city,double longitude,double latitude) {
         this.userId = userId;
         this.location = location;
         this.name = name;
+        this.city =city;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public WareHouse() {
@@ -59,5 +65,29 @@ public class WareHouse {
 
     public int getId() {
         return id;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
