@@ -50,7 +50,6 @@ public class RegistController {
             @ApiImplicitParam(paramType = "query",name = "password",value = "密码",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "phone",value = "电话",required = true,dataType = "String")
     })
-
     @RequestMapping(value = "/regist",method = RequestMethod.POST)
     public ResponseEntity<?> regist(String imgStr,String suffix,String username,String password,String phone, Device device){
         Base64Service base64Service = new Base64Service();
