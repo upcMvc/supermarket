@@ -1,5 +1,8 @@
 package com.mvc.upc.model;
 
+import com.mvc.upc.service.LocationService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 /**
@@ -9,6 +12,8 @@ import javax.persistence.*;
 @Table(name = "shop_record")
 @Entity
 public class ShopRecord {
+    @Autowired
+    LocationService locationService;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -28,16 +33,15 @@ public class ShopRecord {
      * @param number      该商品的购买数量
      * @param cost        该购买记录的花费
      * @param wareHouseId 商品发货仓库
-     * @param status      订单状态
      * @param addressId   送货地址id
      */
-    public ShopRecord(int userId, int goodId, int number, double cost, int wareHouseId, String addressId) {
+    public ShopRecord(int userId, int goodId, int number, double cost, String addressId) {
         this.userId = userId;
         this.goodId = goodId;
         this.number = number;
         this.createTime = "" + System.currentTimeMillis();
         this.cost = cost;
-        this.wareHouseId = wareHouseId;
+        this.wareHouseId = locationService.compareCoordinate(addressId);
         this.status = 2;
         this.addressId = addressId;
     }
