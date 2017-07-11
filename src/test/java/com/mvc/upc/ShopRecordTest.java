@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ShopRecord {
+public class ShopRecordTest {
     private int testUserId = 12506;
     @Autowired
     private ShopRecordService shopRecordService;
@@ -24,7 +24,7 @@ public class ShopRecord {
 
     @Test
     public void shopRecordCreateTest() {
-        for (int i = 1; i < 3; i++) {
+        for (int i = 2; i < 3; i++) {
             shopRecordService.createShopRecord(testUserId, i, i, i * i, i);
             log.info("创建一条shopRecord");
         }
@@ -32,7 +32,7 @@ public class ShopRecord {
 
     @Test
     public void shopRecordSelectTest() {
-        shopRecords = shopRecordService.findAllByUserIdAndStatusIsLessThanOrderByCreateTime(testUserId);
+        shopRecords = shopRecordService.findAllByStatusBetweenAndUserIdOrderByCreateTime(testUserId);
         log.info("展示指定用户的所有订单");
         shopRecords.forEach(shopRecord -> System.out.println("userId is " + shopRecord.getUserId() + ", goodId is "
                 + shopRecord.getGoodId() + ", number of good is "
@@ -44,5 +44,19 @@ public class ShopRecord {
 
     @Test
     public void shopRecordUpdateTest() {
+        shopRecords = shopRecordService.findAllByStatusBetweenAndUserIdOrderByCreateTime(testUserId);
+        log.info("更新指定用户的所有订单");
+        shopRecords.forEach(shopRecord -> shopRecord.setStatus(0));
+        shopRecords.forEach(shopRecord -> shopRecordService.evalution(shopRecord.getId(), "this is just a test"));
     }
+
+    @Test
+    public void shopRecordDeleteTest() {
+        shopRecords = shopRecordService.findAllByStatusBetweenAndUserIdOrderByCreateTime(testUserId);
+        shopRecords.forEach(shopRecord -> shopRecordService.deleteShopRecord(shopRecord.getId()));
+        log.info("删除指定用户的所有订单");
+
+    }
+
+
 }

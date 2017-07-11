@@ -46,7 +46,7 @@ public class ShopRecordController {
 
     @RequestMapping("/find")
     public Object find(int userId) {
-        return shopRecordService.findAllByUserIdAndStatusIsLessThanOrderByCreateTime(userId);
+        return shopRecordService.findAllByStatusBetweenAndUserIdOrderByCreateTime(userId);
     }
 
     @RequestMapping("/evalution")

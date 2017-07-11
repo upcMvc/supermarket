@@ -19,7 +19,7 @@ public class ShopRecord {
     private int number;
     private double cost;
     private int wareHouseId; //仓库Id
-    private int status = -2;//初始化为-2,当为0派送中,-1订单失败,1已经签收但是未评价,2完成评价,3订单已被用户删除
+    private int status = -1;//初始化为-1,当为0派送中,-1订单失败,1已经签收但是未评价,2完成评价,3订单已被用户删除
     private int addressId;
 
     /**
@@ -36,7 +36,7 @@ public class ShopRecord {
         this.number = number;
         this.createTime = "" + System.currentTimeMillis();
         this.cost = cost;
-        this.status = 2;
+        this.status = 0;
         this.addressId = addressId;
     }
 

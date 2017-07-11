@@ -52,8 +52,8 @@ public class ShopRecordService {
      * @param userId
      * @return an Iterator
      */
-    public Iterable<ShopRecord> findAllByUserIdAndStatusIsLessThanOrderByCreateTime(int userId) {
-        Iterable<ShopRecord> shopRecords = shopRecordRepository.findAllByUserIdAndStatusIsLessThanOrderByCreateTime(userId, 3);
+    public Iterable<ShopRecord> findAllByStatusBetweenAndUserIdOrderByCreateTime(int userId) {
+        Iterable<ShopRecord> shopRecords = shopRecordRepository.findAllByStatusBetweenAndUserIdOrderByCreateTime(0, 2, userId);
         if (shopRecords != null) {
             log.info("没有存在的订单");
         }
