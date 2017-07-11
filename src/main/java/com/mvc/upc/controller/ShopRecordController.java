@@ -25,9 +25,9 @@ public class ShopRecordController {
     private ShopRecordService shopRecordService;
 
     @RequestMapping("/create")
-    public Object create(int userId, int goodId, int number, double cost, int wareHouseId, int status,String addressId) {
-        ShopRecord shopRecord = shopRecordService.createShopRecord(userId, goodId, number, cost, wareHouseId, 2, addressId);
-        if (shopRecord!=null) {
+    public Object create(int userId, int goodId, int number, double cost, String addressId) {
+        ShopRecord shopRecord = shopRecordService.createShopRecord(userId, goodId, number, cost, addressId);
+        if (shopRecord != null) {
             return new JsonMes(1, "创建订单成功");
         } else {
             return new JsonMes(0, "创建订单失败");
