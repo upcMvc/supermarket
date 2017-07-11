@@ -39,8 +39,9 @@ public class LocationService {
 
      *@return 返回当前城市中最近的仓库
      **/
-    public int compareCoordinate(String addressId){
-        Address address =addressRepository.findOne(Integer.valueOf(addressId));
+    public int compareCoordinate(int addressId){
+
+        Address address =addressRepository.findOne(addressId);
         Iterable<WareHouse> iwh = wareHouseRepository.findAllByCity(address.getCity());
         double lon = address.getLongitude();
         double lat = address.getLatitude();//用户纬度
