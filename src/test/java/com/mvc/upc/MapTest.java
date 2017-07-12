@@ -1,5 +1,6 @@
 package com.mvc.upc;
 
+import com.mvc.upc.service.Base64Service;
 import com.mvc.upc.service.LocationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,10 +18,18 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class MapTest {
     @Autowired
     LocationService locationService;
-
+    @Autowired
+    Base64Service base64Service;
 
     @Test
     public void locationTest(){
         locationService.setlocation();
+    }
+    @Test
+    public void base64(){
+        String path = "image/可乐.PNG";
+        String reader= base64Service.getImageStr(path);
+        System.out.println(reader);
+        base64Service.generateImage(reader,"可乐","png");
     }
 }

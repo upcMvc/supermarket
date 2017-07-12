@@ -55,7 +55,7 @@ public class Base64Service {
      * @CreateTime:
      * @return
      */
-    public static String GetImageStr(String imgFile)
+    public  String getImageStr(String imgFile)
     {//将图片文件转化为字节数组字符串，并对其进行Base64编码处理
 
         InputStream in = null;

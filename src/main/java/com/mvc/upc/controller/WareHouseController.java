@@ -2,6 +2,7 @@ package com.mvc.upc.controller;
 
 import com.mvc.upc.dto.JsonMes;
 import com.mvc.upc.dto.SwaggerParameter;
+import com.mvc.upc.repository.ShopRecordRepository;
 import com.mvc.upc.repository.WareHouseRepository;
 import com.mvc.upc.service.LocationService;
 import com.mvc.upc.service.WareHouseService;
@@ -26,6 +27,8 @@ public class WareHouseController {
     WareHouseService wareHouseService;
     @Autowired
     WareHouseRepository wareHouseRepository;
+    @Autowired
+    ShopRecordRepository shopRecordRepository;
 
     @PostMapping(value = "/create")
     @ApiOperation(value = "新建仓库")
@@ -71,4 +74,15 @@ public class WareHouseController {
         return wareHouseRepository.findAll();
     }
 
+    @GetMapping("/getShopRecord")
+    @ApiOperation("/查询一间仓库的订单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name="whid",value = "仓库id",required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query",name="status",value = "订单状态信息",required = true,dataType = "int")
+    })
+    public Object getShopRecord(int whid,int status){
+
+        return shopRecordRepository.findAllByWareHouseIdAndStatusOrderByCreateTime(whid,status);
+    }
 }

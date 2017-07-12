@@ -37,6 +37,8 @@ public class GoodsController {
     GoodsRepository goodsRepository;
     @Autowired
     GoodsService goodsService;
+    @Autowired
+    Base64Service base64Service;
 
     @PostMapping(value = "/create")
     @ApiOperation(value = "添加顾客所见商品")
@@ -91,6 +93,15 @@ public class GoodsController {
             return new JsonMes(1, "删除成功");
         else
             return new JsonMes(0,"未找到该商品");
+    }
+
+    @PostMapping("/getImage")
+    @ApiOperation(value = "返给图片的base64编码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="goodid",value = "商品id",required = true,dataType = "int") })
+    public String getImage(String imgPath){
+        return base64Service.getImageStr(imgPath);
     }
 
 }
