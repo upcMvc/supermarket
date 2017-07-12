@@ -99,7 +99,7 @@ public class GoodsController {
     @ApiOperation(value = "返给图片的base64编码")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
-            @ApiImplicitParam(paramType = "query" ,name ="goodid",value = "商品id",required = true,dataType = "int") })
+            @ApiImplicitParam(paramType = "query" ,name ="imgPath",value = "文件路径",required = true,dataType = "String") })
     public String getImage(String imgPath){
         return base64Service.getImageStr(imgPath);
     }

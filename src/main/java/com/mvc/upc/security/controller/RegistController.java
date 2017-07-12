@@ -74,6 +74,11 @@ public class RegistController {
             user = userRepository.findFirstByEmail(email);
             if(user != null){
                 return new JsonMes(-1,"邮箱已存在");
+            }else {
+                user = userRepository.findFirstByPhone(phone);
+                if (user!=null){
+                    return new JsonMes(-1,"手机号已被注册");
+                }
             }
         }
         user = new User();
