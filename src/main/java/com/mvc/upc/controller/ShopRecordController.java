@@ -5,6 +5,8 @@ import com.mvc.upc.dto.JsonMes;
 import com.mvc.upc.dto.SwaggerParameter;
 import com.mvc.upc.model.ShopRecord;
 import com.mvc.upc.service.ShopRecordService;
+import com.mvc.upc.service.WareHouseService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -28,18 +30,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShopRecordController {
     @Autowired
     private ShopRecordService shopRecordService;
+    @Autowired
+    private WareHouseService wareHouseService;
 
 
     @ApiOperation(value = "生成订单")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "userId", value = "用户id", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType = "query",name = "goodId",value = "商品id",required = true,dataType = "int"),
-            @ApiImplicitParam(paramType = "query",name="num",value = "数量",required = true,dataType = "int"),
-            @ApiImplicitParam(paramType ="query",name = "cost",value = "订单货款",required = true,dataType = "double"),
-            @ApiImplicitParam(paramType = "query",name = "addressId",value = "addressId",required = true,dataType = "int")
+            @ApiImplicitParam(paramType = "query", name = "goodId", value = "商品id", required = true, dataType = "int"),
+            @ApiImplicitParam(paramType = "query", name = "num", value = "数量", required = true, dataType = "int"),
+            @ApiImplicitParam(paramType = "query", name = "cost", value = "订单货款", required = true, dataType = "double"),
+            @ApiImplicitParam(paramType = "query", name = "addressId", value = "addressId", required = true, dataType = "int")
     })
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Object create(int userId, int goodId, int number, double cost, int addressId) {
         ShopRecord shopRecord = shopRecordService.createShopRecord(userId, goodId, number, cost, addressId);
         if (shopRecord != null) {
@@ -48,12 +52,13 @@ public class ShopRecordController {
             return new JsonMes(0, "创建订单失败");
         }
     }
+
     @ApiOperation(value = "删除订单")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "id", value = "id字段值", required = true, dataType = "int")
     })
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Object delete(int id) {
         boolean ver = shopRecordService.deleteShopRecord(id);
         if (ver) {
@@ -69,7 +74,7 @@ public class ShopRecordController {
             @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "userId", value = "用户id", required = true, dataType = "int")
     })
-    @RequestMapping(value = "/find",method = RequestMethod.GET)
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
     public Object find(int userId) {
         return shopRecordService.findAllByStatusBetweenAndUserIdOrderByCreateTime(userId);
     }
@@ -79,9 +84,9 @@ public class ShopRecordController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "id", value = "id字段值", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType = "query",name = "evalution",value = "评价",required = true,dataType = "String")
+            @ApiImplicitParam(paramType = "query", name = "evalution", value = "评价", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/evalution",method = RequestMethod.POST)
+    @RequestMapping(value = "/evalution", method = RequestMethod.POST)
     public Object evalution(int id, String evalution) {
         boolean ver = shopRecordService.evalution(id, evalution);
         if (ver) {
@@ -89,6 +94,17 @@ public class ShopRecordController {
         } else {
             return new JsonMes(0, "评价失败");
         }
+    }
+
+
+    @ApiOperation(value = "发送email给仓库管理员")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = "userId", value = "用户id", required = true, dataType = "int")
+    })
+    @RequestMapping(value = "/whSendEmail", method = RequestMethod.POST)
+    public void whSendEmail(int userId) {
+        wareHouseService.sendEmail(userId);
     }
 }
 
