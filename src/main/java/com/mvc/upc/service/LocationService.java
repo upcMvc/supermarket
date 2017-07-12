@@ -41,17 +41,16 @@ public class LocationService {
     }
     /**
      *@param addressId 用户的位置id
-
-
+     *@return
      **/
     public int compareCoordinate(int addressId){
-        log.debug("addressId:"+addressId);
+        System.out.println("addressId:"+addressId);
         Address address =addressRepository.findOne(addressId);
         Iterable<WareHouse> iwh = wareHouseRepository.findAllByCity(address.getCity());
         double lon = address.getLongitude();
         double lat = address.getLatitude();//用户纬度
         Iterator<WareHouse> whs = iwh.iterator();
-        int whid = 0;
+        int whid = -1;
         double di =100000;
         while (whs.hasNext()){
             log.debug("进入循环");
@@ -59,6 +58,7 @@ public class LocationService {
             double lon1 =lon-wareHouse.getLongitude();
             double lat1 = lat-wareHouse.getLatitude();
             double differ = Math.sqrt(lon1*lon1+lat1*lat1);//经纬度直线距离差
+            System.out.println("距离差是："+differ);
             if(differ<di){
                 di = differ;
                 whid = wareHouse.getId();

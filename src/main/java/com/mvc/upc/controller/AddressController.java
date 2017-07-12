@@ -67,7 +67,6 @@ public class AddressController {
             @ApiImplicitParam(paramType = "query",name ="latitude",value = "纬度",required = true,dataType = "double"),
             @ApiImplicitParam(paramType = "query",name ="longitude",value = "经度",required = true,dataType = "double"),
             @ApiImplicitParam(paramType = "query",name ="city",value = "城市",required = true,dataType = "String")
-
     })
     @PostMapping("/update")
     public Object update(int addressId,String location,double latitude, double longitude, String city){

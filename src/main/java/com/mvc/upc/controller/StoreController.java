@@ -13,9 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
@@ -40,7 +38,7 @@ public class StoreController{
     GoodsRepository goodsRepository;
 
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @PostMapping(value = "/create")
     @ApiOperation(value = "创建仓库存储")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
@@ -53,7 +51,7 @@ public class StoreController{
         return new  JsonMes(1,"创建成功");
     }
 
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     @ApiOperation(value = "更新仓库存储")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
@@ -67,7 +65,8 @@ public class StoreController{
             return new JsonMes(0,"未找到该记录");
     }
 
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+
+    @PostMapping(value = "/delete")
     @ApiOperation(value = "删除仓库存储")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
@@ -80,7 +79,7 @@ public class StoreController{
             return new JsonMes(0,"未找到该记录");
     }
 
-    @RequestMapping("/findGood")
+    @GetMapping("/findGood")
     @ApiOperation(value = "查看仓库货物存储")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
@@ -90,7 +89,7 @@ public class StoreController{
         return storeRepository.findByGoodId(goodid);
     }
 
-    @RequestMapping("/findWH")
+    @GetMapping("/findWH")
     @ApiOperation(value = "查询仓库物品", notes = "")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
@@ -99,7 +98,10 @@ public class StoreController{
 
         return storeService.findWH(whId);
     }
-    @RequestMapping("/findAll")
+
+    @GetMapping("/findAll")
+    @ApiOperation("/查找所有仓库存储")
+    @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String")
     public Object findAll(){
         return storeRepository.findAll();
     }
