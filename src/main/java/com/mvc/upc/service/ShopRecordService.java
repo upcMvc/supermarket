@@ -60,6 +60,14 @@ public class ShopRecordService {
         return shopRecords;
     }
 
+    public Iterable<ShopRecord> findAllByWareHouseIdAndStatusOrderByCreateTime(int wareHouseId, int status) {
+        Iterable<ShopRecord> shopRecords = shopRecordRepository.findAllByWareHouseIdAndStatusOrderByCreateTime(wareHouseId, status);
+        if (shopRecords != null) {
+            log.info("没有存在的订单");
+        }
+        return shopRecords;
+    }
+
     /**
      * 订单完成后进行评论的接口
      *

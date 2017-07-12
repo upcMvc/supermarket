@@ -22,5 +22,7 @@ public interface ShopRecordRepository extends CrudRepository<ShopRecord, Integer
      */
     Iterable<ShopRecord> findAllByStatusBetweenAndUserIdOrderByCreateTime(int min, int max, int userId);
 
+    Iterable<ShopRecord> findAllByWareHouseIdAndStatusOrderByCreateTime(int wareHouseId, int status);
+
     ShopRecord findFirstById(int id);
 }
