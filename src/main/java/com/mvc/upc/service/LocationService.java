@@ -4,6 +4,9 @@ import com.mvc.upc.model.Address;
 import com.mvc.upc.model.WareHouse;
 import com.mvc.upc.repository.AddressRepository;
 import com.mvc.upc.repository.WareHouseRepository;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,8 @@ public class LocationService {
     WareHouseRepository wareHouseRepository;
     @Autowired
     AddressRepository addressRepository;
+
+    private final Log log = LogFactory.getLog(this.getClass());
 
     public void setlocation(/*String locaiton*/){
 
@@ -36,29 +41,30 @@ public class LocationService {
     }
     /**
      *@param addressId 用户的位置id
-
-     *@return 返回当前城市中最近的仓库
+     *@return
      **/
     public int compareCoordinate(int addressId){
-
+        System.out.println("addressId:"+addressId);
         Address address =addressRepository.findOne(addressId);
         Iterable<WareHouse> iwh = wareHouseRepository.findAllByCity(address.getCity());
         double lon = address.getLongitude();
         double lat = address.getLatitude();//用户纬度
         Iterator<WareHouse> whs = iwh.iterator();
-        WareHouse wh = null;
-        double di =10;
+        int whid = -1;
+        double di =100000;
         while (whs.hasNext()){
+            log.debug("进入循环");
             WareHouse wareHouse = whs.next();
             double lon1 =lon-wareHouse.getLongitude();
             double lat1 = lat-wareHouse.getLatitude();
             double differ = Math.sqrt(lon1*lon1+lat1*lat1);//经纬度直线距离差
+            System.out.println("距离差是："+differ);
             if(differ<di){
                 di = differ;
-                wh = wareHouse;
+                whid = wareHouse.getId();
             }
         }
-        return wh.getId();
+        return whid;
     }
 
     public double[] subLocation(String coordinate){

@@ -1,8 +1,5 @@
 package com.mvc.upc.model;
 
-import com.mvc.upc.service.LocationService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 
 /**
@@ -12,8 +9,6 @@ import javax.persistence.*;
 @Table(name = "shop_record")
 @Entity
 public class ShopRecord {
-    @Autowired
-    LocationService locationService;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -24,8 +19,8 @@ public class ShopRecord {
     private int number;
     private double cost;
     private int wareHouseId; //仓库Id
-    private int status = -2;//初始化为-2,当为0派送中,-1订单失败,1已经签收但是未评价,2完成评价,3订单已被用户删除
-    private String addressId;
+    private int status = -1;//初始化为-1,当为0派送中,-1订单失败,1已经签收但是未评价,2完成评价,3订单已被用户删除
+    private int addressId;
 
     /**
      * @param userId      用户id
@@ -35,25 +30,24 @@ public class ShopRecord {
      * @param wareHouseId 商品发货仓库
      * @param addressId   送货地址id
      */
-    public ShopRecord(int userId, int goodId, int number, double cost, String addressId) {
+    public ShopRecord(int userId, int goodId, int number, double cost, int addressId) {
         this.userId = userId;
         this.goodId = goodId;
         this.number = number;
         this.createTime = "" + System.currentTimeMillis();
         this.cost = cost;
-        this.wareHouseId = locationService.compareCoordinate(addressId);
-        this.status = 2;
+        this.status = 0;
         this.addressId = addressId;
     }
 
     public ShopRecord() {
     }
 
-    public String getAddressId() {
+    public int getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(String addressId) {
+    public void setAddressId(int addressId) {
         this.addressId = addressId;
     }
 

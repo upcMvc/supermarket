@@ -13,14 +13,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShopRecordService {
     @Autowired
+    private LocationService locationService;
+    @Autowired
     private ShopRecordRepository shopRecordRepository;
     private final Log log = LogFactory.getLog(this.getClass());
 
     /**
      * 由于评价在订单交易成功后才进行，所以在此不进行传值
      */
-    public ShopRecord createShopRecord(int userId, int goodId, int number, double cost, String addressId) {
+    public ShopRecord createShopRecord(int userId, int goodId, int number, double cost, int addressId) {
         ShopRecord shopRecord = new ShopRecord(userId, goodId, number, cost, addressId);
+        shopRecord.setWareHouseId(locationService.compareCoordinate(addressId));
         return shopRecordRepository.save(shopRecord);
     }
 
@@ -49,8 +52,16 @@ public class ShopRecordService {
      * @param userId
      * @return an Iterator
      */
-    public Iterable<ShopRecord> findAllByUserIdAndStatusIsLessThanOrderByCreateTime(int userId) {
-        Iterable<ShopRecord> shopRecords = shopRecordRepository.findAllByUserIdAndStatusIsLessThanOrderByCreateTime(userId, 3);
+    public Iterable<ShopRecord> findAllByStatusBetweenAndUserIdOrderByCreateTime(int userId) {
+        Iterable<ShopRecord> shopRecords = shopRecordRepository.findAllByStatusBetweenAndUserIdOrderByCreateTime(0, 2, userId);
+        if (shopRecords != null) {
+            log.info("没有存在的订单");
+        }
+        return shopRecords;
+    }
+
+    public Iterable<ShopRecord> findAllByWareHouseIdAndStatusOrderByCreateTime(int wareHouseId, int status) {
+        Iterable<ShopRecord> shopRecords = shopRecordRepository.findAllByWareHouseIdAndStatusOrderByCreateTime(wareHouseId, status);
         if (shopRecords != null) {
             log.info("没有存在的订单");
         }

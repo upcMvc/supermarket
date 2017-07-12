@@ -11,9 +11,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Swagger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import sun.rmi.runtime.Log;
 
 /**
@@ -32,6 +30,7 @@ import sun.rmi.runtime.Log;
  * /goods/delete
  */
 @RequestMapping("/goods")
+@RestController
 public class GoodsController {
 
     @Autowired
@@ -39,7 +38,7 @@ public class GoodsController {
     @Autowired
     GoodsService goodsService;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @PostMapping(value = "/create")
     @ApiOperation(value = "添加顾客所见商品")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
@@ -59,8 +58,7 @@ public class GoodsController {
     }
 
 
-
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     @ApiOperation(value = "更新客户所见的商品信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
@@ -77,15 +75,13 @@ public class GoodsController {
             return new JsonMes(0,"未找到该商品");
     }
 
-    @RequestMapping("/findAll")
+    @GetMapping("/findAll")
     public Object findAll() {
         return goodsRepository.findAll();
     }
 
 
-
-
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @PostMapping(value = "/delete")
     @ApiOperation(value = "更新客户所见的商品信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
