@@ -85,4 +85,9 @@ public class WareHouseController {
 
         return shopRecordRepository.findAllByWareHouseIdAndStatusOrderByCreateTime(whid,status);
     }
+//
+//    @PostMapping("/sendEmail")
+//    public Object sendEmail(int userid){
+//
+//    }
 }

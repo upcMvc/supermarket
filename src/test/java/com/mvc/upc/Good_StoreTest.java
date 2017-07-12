@@ -14,6 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import javax.management.openmbean.SimpleType;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by chenzifeng on 2017/7/10.
  */
@@ -69,4 +73,9 @@ public class Good_StoreTest {
 
     }
 
+    @Test
+    public void time(){
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(s.format(new Date()));
+    }
 }
