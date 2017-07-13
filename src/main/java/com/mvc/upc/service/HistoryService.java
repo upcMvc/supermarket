@@ -48,6 +48,15 @@ public class HistoryService {
     }
 
     /**
+     * 删除一用户所有的历史记录
+     * @param userId
+     */
+    public void deleteAll(int userId){
+        Iterable<History> histories=historyRepository.findByUserIdOrderByTimeDesc(userId);
+        historyRepository.delete(histories);
+    }
+
+    /**
      * 查询用户浏览记录
      * @param userId
      * @return  history对象数组

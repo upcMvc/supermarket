@@ -54,4 +54,15 @@ public class HistoryController {
     public Object find(int userId){
         return historyService.findAllByUserId(userId);
     }
+
+    @ApiOperation(value = "删除用户所有历史记录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name ="userId",value = "用户Id",required = true,dataType = "int"),
+    })
+    @PostMapping("/deleteall")
+    public Object deleteAll(int userId){
+         historyService.deleteAll(userId);
+         return new JsonMes(1,"删除成功");
+    }
 }
