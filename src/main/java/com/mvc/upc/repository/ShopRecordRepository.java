@@ -3,6 +3,8 @@ package com.mvc.upc.repository;
 import com.mvc.upc.model.ShopRecord;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /**
  * Created by jay on 7/8/2017.
  */
@@ -28,5 +30,5 @@ public interface ShopRecordRepository extends CrudRepository<ShopRecord, Integer
 
     ShopRecord findFirstById(int id);
 
-    Iterable<ShopRecord> findAllByGoodIdOrderByCreateTime(int goodId);
+    List<ShopRecord> findAllByGoodIdOrderByCreateTime(int goodId);
 }

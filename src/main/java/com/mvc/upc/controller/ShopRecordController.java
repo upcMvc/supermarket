@@ -1,9 +1,12 @@
 package com.mvc.upc.controller;
 
 
+import com.mvc.upc.dto.EvaluateByUsername;
 import com.mvc.upc.dto.JsonMes;
 import com.mvc.upc.dto.SwaggerParameter;
 import com.mvc.upc.model.ShopRecord;
+import com.mvc.upc.security.model.User;
+import com.mvc.upc.security.model.UserRepository;
 import com.mvc.upc.service.ShopRecordService;
 import com.mvc.upc.service.WareHouseService;
 import io.swagger.annotations.Api;
@@ -11,9 +14,13 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jay on 7/8/2017.
@@ -32,6 +39,8 @@ public class ShopRecordController {
     private ShopRecordService shopRecordService;
     @Autowired
     private WareHouseService wareHouseService;
+    @Autowired
+    private UserRepository userRepository;
 
 
     @ApiOperation(value = "生成订单")
@@ -87,9 +96,19 @@ public class ShopRecordController {
     })
     @RequestMapping(value = "/getEvalutionByGoodId", method = RequestMethod.GET)
     public Object findByGoodId(int goodId) {
-        return shopRecordService.findAllByGoodIdOrderByCreateTime(goodId);
+        List<ShopRecord> shopRecords = shopRecordService.findAllByGoodIdOrderByCreateTime(goodId);
+        List<User> users = new ArrayList<>();
+        shopRecords.forEach(shopRecord -> users.add(userRepository.findOne(shopRecord.getUserId())));
+        List<EvaluateByUsername> evaluateByUsernames = new ArrayList<>();
+        for (int i = 0; i < shopRecords.size(); i++) {
+            EvaluateByUsername evaluateByUsername = new EvaluateByUsername();
+            evaluateByUsername.setUserid(users.get(i).getId());
+            evaluateByUsername.setUsername(users.get(i).getUsername());
+            evaluateByUsername.setEvaluate(shopRecords.get(i).getEvalution());
+            evaluateByUsernames.add(evaluateByUsername);
+        }
+        return evaluateByUsernames;
     }
-
 
     @ApiOperation(value = "评价订单")
     @ApiImplicitParams({

@@ -7,6 +7,8 @@ import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by jay on 7/8/2017.
  */
@@ -76,8 +78,8 @@ public class ShopRecordService {
         return shopRecords;
     }
 
-    public Iterable<ShopRecord> findAllByGoodIdOrderByCreateTime(int goodId) {
-        Iterable<ShopRecord> shopRecords = shopRecordRepository.findAllByGoodIdOrderByCreateTime(goodId);
+    public List<ShopRecord> findAllByGoodIdOrderByCreateTime(int goodId) {
+        List<ShopRecord> shopRecords = shopRecordRepository.findAllByGoodIdOrderByCreateTime(goodId);
         if (shopRecords != null) {
             log.info("没有存在的订单");
         }
