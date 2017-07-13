@@ -2,6 +2,7 @@ package com.mvc.upc.security.controller;
 
 import com.mvc.upc.config.AppConfig;
 import com.mvc.upc.dto.JsonMes;
+import com.mvc.upc.dto.SwaggerParameter;
 import com.mvc.upc.security.model.*;
 import com.mvc.upc.security.service.JwtTokenUtil;
 import com.mvc.upc.security.service.JwtUser;
@@ -16,10 +17,7 @@ import org.springframework.mobile.device.Device;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -191,5 +189,27 @@ public class RegistController {
             return new JsonMes(-1,"未知错误");
         }
 
+    }
+
+    @PostMapping("/reset_user")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = "userId", value = "用户Id", required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query",name = "email",value = "重设的邮箱",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = "phone",value = "重设的手机号",required = true,dataType = "String")
+    })
+    public Object resetUser(int userId,String email,String phone){
+        User user =userRepository.findOne(userId);
+        User check = userRepository.findFirstByEmail(email);
+        if (check!=null){
+            return new JsonMes(-1,"邮箱已存在");
+        }else {
+            check = userRepository.findFirstByPhone(phone);
+            if (check!=null)
+                return new JsonMes(-1,"手机号已被注册");
+        }
+        user.setEmail(email);
+        user.setPhone(phone);
+        return userRepository.save(user);
     }
 }
