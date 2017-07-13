@@ -24,7 +24,7 @@ public class AddressController {
 
     @ApiOperation(value = "添加地址")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="userId",value = "用户Id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query",name ="location",value = "地址",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="latitude",value = "纬度",required = true,dataType = "double"),
@@ -36,20 +36,19 @@ public class AddressController {
     public Object create(int userId,String location, double latitude, double longitude, String city){
         return addressService.create(userId,location,latitude,longitude,city);
     }
-
+    @GetMapping("/findbyuserid")
     @ApiOperation(value = "查找某用户所有地址")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="userId",value = "用户Id",required = true,dataType = "int"),
     })
-    @GetMapping("/findbyuserid")
     public Object findByUserId(int userId){
         return addressService.findByUserId(userId);
     }
 
     @ApiOperation(value = "删除地址")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="addressId",value = "地址Id",required = true,dataType = "int"),
     })
     @PostMapping("/delete")

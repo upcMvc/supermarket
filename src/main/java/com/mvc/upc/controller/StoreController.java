@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RequestMapping("/store")
 @RestController
-//@PreAuthorize("hasAnyRole({'ROLE_ADMIN','ROLE_WAREHOUSEADMIN'})")
+@PreAuthorize("hasAnyRole({'ROLE_ADMIN','ROLE_WAREHOUSEADMIN'})")
 public class StoreController{
 
     @Autowired

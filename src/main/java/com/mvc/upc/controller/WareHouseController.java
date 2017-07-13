@@ -85,6 +85,16 @@ public class WareHouseController {
 
         return shopRecordRepository.findAllByWareHouseIdAndStatusOrderByCreateTime(whid,status);
     }
+
+
+    @PostMapping("/findWhid")
+    @ApiOperation("/查询一间仓库的订单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name="userId",value = "用户id",required = true,dataType = "int") })
+    public Object findWHidByUserId(int userId){
+        return wareHouseService.findByUserId(userId);
+    }
 //
 //    @PostMapping("/sendEmail")
 //    public Object sendEmail(int userid){
