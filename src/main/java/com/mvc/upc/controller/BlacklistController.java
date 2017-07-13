@@ -27,7 +27,7 @@ public class BlacklistController {
 
     @ApiOperation(value = "添加黑名单")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="userId",value = "用户Id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query",name ="reason",value = "加入原因",required = true,dataType = "String")
     })
@@ -39,7 +39,7 @@ public class BlacklistController {
 
     @ApiOperation(value = "移除黑名单")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query" , name = "userId",value = "用户Id",required = true,dataType = "int")
     })
     @PostMapping("/delete")
@@ -50,7 +50,7 @@ public class BlacklistController {
 
 
     @ApiOperation(value = "展示黑名单")
-    @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String")
+    @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String")
     @GetMapping("/findall")
     public Object findAll(){
         return blacklistService.findAll();

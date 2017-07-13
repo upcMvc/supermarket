@@ -24,6 +24,7 @@ jwt:
 app:
   config:
     server: http://localhost:8082
+    front: http://localhost:8081/#/
 server:
   port: 8082
 

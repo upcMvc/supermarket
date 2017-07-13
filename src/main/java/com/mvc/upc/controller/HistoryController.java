@@ -25,7 +25,7 @@ public class HistoryController {
 
     @ApiOperation(value = "添加一条历史记录")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="goodId",value = "商品Id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query",name ="userId",value = "用户Id",required = true,dataType = "int")
     })
@@ -36,7 +36,7 @@ public class HistoryController {
 
     @ApiOperation(value = "删除一条历史记录")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="historyId",value = "历史记录Id",required = true,dataType = "int"),
     })
     @PostMapping("/delete")
@@ -47,7 +47,7 @@ public class HistoryController {
 
     @ApiOperation(value = "查找用户历史记录")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="userId",value = "用户Id",required = true,dataType = "int")
     })
     @GetMapping("/find")

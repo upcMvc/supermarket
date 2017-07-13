@@ -41,7 +41,7 @@ public class StoreController{
     @PostMapping(value = "/create")
     @ApiOperation(value = "创建仓库存储")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "goodid",value = "商品id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query",name = "wareHouseId",value = "仓库id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query",name = "num",value = "存储数量",required = true,dataType = "int")
@@ -54,7 +54,7 @@ public class StoreController{
     @PostMapping(value = "/update")
     @ApiOperation(value = "更新仓库存储")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "storeId",value = "存储id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query",name = "num",value = "存储数量",required = true,dataType = "int")
     })
@@ -69,7 +69,7 @@ public class StoreController{
     @PostMapping(value = "/delete")
     @ApiOperation(value = "删除仓库存储")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "storeId",value = "存储id",required = true,dataType = "int")
     })
     public Object delete(int storeId){
@@ -82,7 +82,7 @@ public class StoreController{
     @GetMapping("/findGood")
     @ApiOperation(value = "查看仓库货物存储")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "goodid",value = "商品id",required = true,dataType = "int")
     })
     public Object findGood(int goodid){
@@ -92,7 +92,7 @@ public class StoreController{
     @GetMapping("/findWH")
     @ApiOperation(value = "查询仓库物品", notes = "")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "whId", value = "仓库ID", required = true,dataType = "int")})
     public Object findWH(int whId){
 
@@ -101,7 +101,7 @@ public class StoreController{
 
     @GetMapping("/findAll")
     @ApiOperation("/查找所有仓库存储")
-    @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String")
+    @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String")
     public Object findAll(){
         return storeRepository.findAll();
     }

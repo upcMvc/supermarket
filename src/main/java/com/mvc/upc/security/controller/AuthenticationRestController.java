@@ -1,6 +1,8 @@
 package com.mvc.upc.security.controller;
 
 import com.mvc.upc.dto.JsonMes;
+import com.mvc.upc.security.model.User;
+import com.mvc.upc.security.model.UserRepository;
 import com.mvc.upc.security.service.JwtAuthenticationResponse;
 import com.mvc.upc.security.service.JwtTokenUtil;
 import com.mvc.upc.security.service.JwtUser;
@@ -35,6 +37,9 @@ public class AuthenticationRestController {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     public Object createAuthenticationToken(String username, String password, Device device) throws AuthenticationException {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -44,8 +49,9 @@ public class AuthenticationRestController {
         }
         final String token = jwtTokenUtil.generateToken((JwtUser) userDetails, device);
         Map<Object,Object> map = new HashMap<>();
-        map.put("user",userDetails);
-        map.put("tocken",token);
+        User user= userRepository.findFirstByUsername(userDetails.getUsername());
+        map.put("user",user);
+        map.put("token",token);
         return map;
     }
 

@@ -33,7 +33,7 @@ public class WareHouseController {
     @PostMapping(value = "/create")
     @ApiOperation(value = "新建仓库")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query", name="name",value = "仓库名",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query", name="userId",value = "仓库管理员的用户id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query", name="city",value = "仓库所在城市名",required = true,dataType = "String"),
@@ -48,7 +48,7 @@ public class WareHouseController {
     @PostMapping(value = "/delete")
     @ApiOperation(value = "移除仓库")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query", name="id",value = "仓库的id",required = true,dataType = "int"),
     })
     public Object delete(int id){
@@ -60,7 +60,7 @@ public class WareHouseController {
     @GetMapping("/cityWarehouse")
     @ApiOperation(value = "查找一座城市的仓库")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query", name="city",value = "仓库所在城市名",required = true,dataType = "String")
     })
     public Object cityWarehouse(String city){
@@ -69,7 +69,7 @@ public class WareHouseController {
 
     @GetMapping("/allWarehouse")
     @ApiOperation(value = "查找一座城市的仓库")
-    @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String")
+    @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String")
     public Object allWarehouse(){
         return wareHouseRepository.findAll();
     }
@@ -77,7 +77,7 @@ public class WareHouseController {
     @GetMapping("/getShopRecord")
     @ApiOperation("/查询一间仓库的订单")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query", name="whid",value = "仓库id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query",name="status",value = "订单状态信息",required = true,dataType = "int")
     })

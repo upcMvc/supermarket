@@ -101,14 +101,14 @@ public class RegistController {
         final String token = jwtTokenUtil.generateToken((JwtUser) userDetails, device);
 
         StringBuffer sb = new StringBuffer("点击下面链接激活账号，48小时有效，否则重新注册账号，链接只能使用一次，请尽快激活 ！</br>");
-        sb.append("<a href=\"" + appConfig.serveraddress +"/user/validate?&name=");
+        sb.append("<a href=\"" + appConfig.front +"/user/validate?&name=");
         sb.append(username);
         sb.append("&validateCode=");
         Double validateCode = username.length() * MODULUS;
         sb.append(validateCode);
         sb.append("&sendDate=");
         sb.append(new Date());
-        sb.append("\">" + appConfig.serveraddress + "/validate?&mail=");
+        sb.append("\">" + appConfig.front + "/validate?&mail=");
         sb.append(email);
         sb.append("&validateCode=");
         sb.append(validateCode);
@@ -141,7 +141,6 @@ public class RegistController {
             return new JsonMes(-1,"验证邮件失效，请重新验证");
         } else {
             User user = userRepository.findFirstByEmail(name);
-            System.out.println(user.getUsername());
             if (user != null) {
                 user.setEnabled(true);
                 userRepository.save(user);

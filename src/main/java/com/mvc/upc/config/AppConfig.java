@@ -11,4 +11,9 @@ public class AppConfig {
 
     @Value("${app.config.server}")
     public String serveraddress;
+
+
+    @Value("${app.config.front}")
+    public String front;
+
 }

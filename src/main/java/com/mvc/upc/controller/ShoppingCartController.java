@@ -30,7 +30,7 @@ public class ShoppingCartController {
 
     @ApiOperation(value = "增加商品到购物车")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "userId", value = "用户id", required = true, dataType = "int"),
             @ApiImplicitParam(paramType = "query",name = "goodId",value = "商品id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query",name="num",value = "数量",required = true,dataType = "int")
@@ -44,7 +44,7 @@ public class ShoppingCartController {
 
     @ApiOperation(value = "删除购物车中商品")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "id", value = "id字段值", required = true, dataType = "int"),
     })
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
@@ -60,7 +60,7 @@ public class ShoppingCartController {
 
     @ApiOperation(value = "获取购物车中商品")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "userId", value = "用户id", required = true, dataType = "int"),
     })
     @RequestMapping(value = "/find",method = RequestMethod.POST)
@@ -71,7 +71,7 @@ public class ShoppingCartController {
 
     @ApiOperation(value = "修改购物车中商品数量")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "id",value = "id字段值",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query",name="num",value = "数量",required = true,dataType = "int")
     })
