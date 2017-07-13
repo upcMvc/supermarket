@@ -1,6 +1,7 @@
 package com.mvc.upc.service;
 
 
+import com.mvc.upc.dto.StoreDto;
 import com.mvc.upc.model.Goods;
 import com.mvc.upc.model.Store;
 import com.mvc.upc.repository.GoodsRepository;
@@ -27,13 +28,23 @@ public class StoreService {
     private final Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * @param goodid
+     * @param goodName
      * @param wareHouseId
      * @param num
      */
-    public void create(int goodid, int wareHouseId, int num) {
-        Store store = new Store(goodid, wareHouseId, num);
-        storeRepository.save(store);
+    public Object create(String goodName, int wareHouseId, int num) {
+        Goods goods = goodsRepository.findFirstByName(goodName);
+        System.out.println("goodName:"+goodName);
+        System.out.println(goods.getName());
+        int goodid = goods.getId();
+        System.out.println(goodid);
+        Store check = storeRepository.findFirstByGoodIdAndWareHouseId(goodid,wareHouseId);
+        if (check==null)
+            check = new Store(goodid,wareHouseId,num);
+        else{
+            check.setGoodNum(num+check.getGoodNum());
+        }
+        return storeRepository.save(check);
     }
 
     /**
@@ -68,16 +79,17 @@ public class StoreService {
         storeRepository.delete(store);
         return true;
     }
-    public List<Goods> findWH(int whId){
+    public List<StoreDto> findWH(int whId){
 
         Iterable<Store> stores = storeRepository.findByWareHouseId(whId);
         Iterator<Store> storeIterator = stores.iterator();
-        List<Goods> goods = new ArrayList<Goods>();
+        List<StoreDto> lst = new ArrayList<>();
         while(storeIterator.hasNext()){
             Store s = storeIterator.next();
             Goods good = goodsRepository.findOne(s.getGoodId());
-            goods.add(good);
+            StoreDto storeDto = new StoreDto(good.getName(),good.getImgPath(),s.getGoodNum(),good.getPrice());
+            lst.add(storeDto);
         }
-        return goods;
+        return lst;
     }
 }

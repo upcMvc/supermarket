@@ -9,4 +9,8 @@ import org.springframework.data.repository.CrudRepository;
 public interface StoreRepository extends CrudRepository<Store, Integer> {
     Iterable<Store> findByGoodId(int goodId);
     Iterable<Store> findByWareHouseId(int whId);
+
+    Store findFirstByGoodId(int goodId);
+    Store findFirstByWareHouseId(int whid);
+    Store findFirstByGoodIdAndWareHouseId(int goodId,int whId);
 }

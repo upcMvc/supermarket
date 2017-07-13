@@ -13,5 +13,6 @@ public interface GoodsRepository extends CrudRepository<Goods,Integer> {
 
     Iterable<Goods> findByKind(String kind);
     Iterable<Goods> findByName(String name);
+    Goods findFirstByName(String name);
 
 }

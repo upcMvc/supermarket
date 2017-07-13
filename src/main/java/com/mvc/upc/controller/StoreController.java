@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RequestMapping("/store")
 @RestController
-@PreAuthorize("hasAnyRole({'ROLE_ADMIN','ROLE_WAREHOUSEADMIN'})")
+//@PreAuthorize("hasAnyRole({'ROLE_ADMIN','ROLE_WAREHOUSEADMIN'})")
 public class StoreController{
 
     @Autowired
@@ -42,13 +42,13 @@ public class StoreController{
     @ApiOperation(value = "创建仓库存储")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
-            @ApiImplicitParam(paramType = "query",name = "goodid",value = "商品id",required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query",name = "goodName",value = "商品名",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "wareHouseId",value = "仓库id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query",name = "num",value = "存储数量",required = true,dataType = "int")
     })
-    public Object create(int goodid,int wareHouseId,int num){
-        storeService.create(goodid,wareHouseId,num);
-        return new  JsonMes(1,"创建成功");
+    public Object create(String goodName,int wareHouseId,int num){
+
+        return storeService.create(goodName,wareHouseId,num);
     }
 
     @PostMapping(value = "/update")
