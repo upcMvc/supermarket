@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by lylllcc on 2017/7/9.
@@ -209,6 +210,34 @@ public class RegistController {
         }
         user.setEmail(email);
         user.setPhone(phone);
+        return userRepository.save(user);
+    }
+
+    @GetMapping("forget_password")
+    @ApiOperation(value = "忘记密码")
+    @ApiImplicitParam(paramType = "query",name = "userId",value = "用户ID",required = true,dataType = "int")
+    public Object forgetPassword(int userId){
+        User user = userRepository.findOne(userId);
+        if (user==null)
+            return new JsonMes(-1,"用户不存在");
+        String email = user.getEmail();
+        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < 6; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        System.out.println("随机密码为："+sb);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String password = bCryptPasswordEncoder.encode(sb);
+        System.out.println(password);
+        user.setPassword(password);
+
+        String message = "您好，"+user.getUsername()+"; 您的密码已设为"+sb
+                +";请尽快前往个人中心重置密码确保安全。";
+        MailUtils.send(email,message);
+
         return userRepository.save(user);
     }
 }
