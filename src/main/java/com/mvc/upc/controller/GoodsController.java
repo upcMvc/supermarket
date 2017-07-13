@@ -13,9 +13,12 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Swagger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sun.rmi.runtime.Log;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by chenzifeng on 2017/7/8.
@@ -50,7 +53,7 @@ public class GoodsController {
     @PostMapping(value = "/create")
     @ApiOperation(value = "添加顾客所见商品")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="name",value = "商品名",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="kind",value = "商品种类",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="describe",value = "商品描述",required = true,dataType = "String"),
@@ -70,7 +73,7 @@ public class GoodsController {
     @PostMapping(value = "/update")
     @ApiOperation(value = "更新客户所见的商品信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="goodid",value = "商品id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query" ,name ="name",value = "商品名",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="describe",value = "商品描述",required = true,dataType = "String"),
@@ -84,7 +87,17 @@ public class GoodsController {
             return new JsonMes(0,"未找到该商品");
     }
 
+
+    @Value("${jwt.header}")
+    private String tokenHeader;
+
+
+
     @GetMapping("/findAll")
+    @ApiOperation(value = "寻找所有商品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
+    })
     public Object findAll() {
         return goodsRepository.findAll();
     }
@@ -93,7 +106,7 @@ public class GoodsController {
     @PostMapping(value = "/delete")
     @ApiOperation(value = "更新客户所见的商品信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="goodid",value = "商品id",required = true,dataType = "int") })
     public Object delete(int goodId) {
         if (goodsService.delete(goodId))
@@ -105,7 +118,7 @@ public class GoodsController {
     @PostMapping("/getImage")
     @ApiOperation(value = "返给图片的base64编码")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="imgPath",value = "文件路径",required = true,dataType = "String") })
     public String getImage(String imgPath){
         return base64Service.getImageStr(imgPath);

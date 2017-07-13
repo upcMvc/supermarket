@@ -61,7 +61,7 @@ public class AddressController {
 
     @ApiOperation(value = "更新地址")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="addressId",value = "地址Id",required = true,dataType = "int"),
             @ApiImplicitParam(paramType = "query",name ="location",value = "地址",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="latitude",value = "纬度",required = true,dataType = "double"),
@@ -75,7 +75,7 @@ public class AddressController {
 
     @ApiOperation(value = "查找某一地址")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query",name ="addressId",value = "地址Id",required = true,dataType = "int"),
     })
     @GetMapping("/findone")

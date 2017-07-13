@@ -36,7 +36,7 @@ public class ShopRecordController {
 
     @ApiOperation(value = "生成订单")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "userId", value = "用户id", required = true, dataType = "int"),
             @ApiImplicitParam(paramType = "query", name = "goodId", value = "商品id", required = true, dataType = "int"),
             @ApiImplicitParam(paramType = "query", name = "num", value = "数量", required = true, dataType = "int"),
@@ -55,7 +55,7 @@ public class ShopRecordController {
 
     @ApiOperation(value = "删除订单")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "id", value = "id字段值", required = true, dataType = "int")
     })
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -71,7 +71,7 @@ public class ShopRecordController {
 
     @ApiOperation(value = "获取订单")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "userId", value = "用户id", required = true, dataType = "int")
     })
     @RequestMapping(value = "/find", method = RequestMethod.GET)
@@ -82,7 +82,7 @@ public class ShopRecordController {
 
     @ApiOperation(value = "评价订单")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "id", value = "id字段值", required = true, dataType = "int"),
             @ApiImplicitParam(paramType = "query", name = "evalution", value = "评价", required = true, dataType = "String")
     })
@@ -99,7 +99,7 @@ public class ShopRecordController {
 
     @ApiOperation(value = "发送email给仓库管理员")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "userId", value = "用户id", required = true, dataType = "int")
     })
     @RequestMapping(value = "/whSendEmail", method = RequestMethod.POST)
