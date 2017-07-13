@@ -5,13 +5,16 @@ import com.mvc.upc.dto.SwaggerParameter;
 import com.mvc.upc.model.Goods;
 import com.mvc.upc.repository.GoodsRepository;
 import com.mvc.upc.service.Base64Service;
+import com.mvc.upc.service.FileUploadService;
 import com.mvc.upc.service.GoodsService;
+import com.mvc.upc.storage.FileSystemStorageService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Swagger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import sun.rmi.runtime.Log;
 
 /**
@@ -39,6 +42,10 @@ public class GoodsController {
     GoodsService goodsService;
     @Autowired
     Base64Service base64Service;
+    @Autowired
+    FileUploadService fileUploadService;
+    @Autowired
+    FileSystemStorageService fss;
 
     @PostMapping(value = "/create")
     @ApiOperation(value = "添加顾客所见商品")
@@ -102,6 +109,24 @@ public class GoodsController {
             @ApiImplicitParam(paramType = "query" ,name ="imgPath",value = "文件路径",required = true,dataType = "String") })
     public String getImage(String imgPath){
         return base64Service.getImageStr(imgPath);
+    }
+
+//    @PostMapping("/test")
+    @PostMapping("/newCreate")
+    @ApiOperation(value = "添加顾客所见商品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="name",value = "商品名",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="kind",value = "商品种类",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="describe",value = "商品描述",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query" ,name ="num",value = "商品数量",required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query" ,name ="price",value = "商品单价",required = true,dataType = "double"),
+            @ApiImplicitParam(paramType = "query" ,name ="file",value = "图片",required = true,dataType = "MultipartFile"),
+    })
+    public Object  newCreate(String name, String kind, String describe, int num, double price, MultipartFile file){
+
+        return goodsService.newCreate(name,kind,describe,num,price,file);
+
     }
 
 }
