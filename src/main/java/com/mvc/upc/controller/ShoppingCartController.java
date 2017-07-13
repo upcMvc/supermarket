@@ -63,7 +63,7 @@ public class ShoppingCartController {
             @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "userId", value = "用户id", required = true, dataType = "int"),
     })
-    @RequestMapping(value = "/find",method = RequestMethod.POST)
+    @RequestMapping(value = "/find",method = RequestMethod.GET)
     public Object find(int userId) {
         return shoppingCartService.findAllByUserIdOrderByCreateTime(userId);
     }
