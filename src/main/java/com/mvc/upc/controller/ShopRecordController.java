@@ -80,6 +80,17 @@ public class ShopRecordController {
     }
 
 
+    @ApiOperation(value = "获取关于指定商品的所有评价")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = "goodId", value = "商品id", required = true, dataType = "int")
+    })
+    @RequestMapping(value = "/whSendEmail", method = RequestMethod.GET)
+    public Object findByGoodId(int goodId) {
+        return shopRecordService.findAllByGoodIdOrderByCreateTime(goodId);
+    }
+
+
     @ApiOperation(value = "评价订单")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
@@ -106,5 +117,7 @@ public class ShopRecordController {
     public void whSendEmail(int userId) {
         wareHouseService.sendEmail(userId);
     }
+
+
 }
 
