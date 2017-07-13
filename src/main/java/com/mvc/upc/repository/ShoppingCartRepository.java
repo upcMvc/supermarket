@@ -12,7 +12,7 @@ public interface ShoppingCartRepository extends CrudRepository<ShoppingCart, Int
 
     List<ShoppingCart> findAllByUserIdOrderByCreateTime(int userId);
 
-    ShoppingCart findFirstByGoodIdOrderByCreateTime(int goodId);
+    ShoppingCart findAllByUserIdAndGoodIdOrderByCreateTime(int userId,int goodId);
 
     ShoppingCart findFirstById(int id);
 }

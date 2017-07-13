@@ -124,7 +124,7 @@ public class GoodsController {
         return base64Service.getImageStr(imgPath);
     }
 
-//    @PostMapping("/test")
+
     @PostMapping("/newCreate")
     @ApiOperation(value = "添加顾客所见商品")
     @ApiImplicitParams({

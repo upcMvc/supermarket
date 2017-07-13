@@ -30,4 +30,10 @@ public class DevTocken {
         final String token = jwtTokenUtil.generateToken((JwtUser) userDetails);
         return token;
     }
+    @GetMapping("warehouseMaster/user")
+    public String getWHToken(){
+        final UserDetails userDetails = userDetailsService.loadUserByUsername("warehouser");
+        final String token =jwtTokenUtil.generateToken((JwtUser) userDetails);
+        return token;
+    }
 }
