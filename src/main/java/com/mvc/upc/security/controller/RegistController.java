@@ -240,9 +240,19 @@ public class RegistController {
     }
 
     @PostMapping("/reset_password")
+    @ApiOperation(value = "用户重设密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = "userId", value = "用户Id", required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query",name = "password", value = "用户设置的密码", required = true,dataType = "String")
+    })
     public Object resetPassword(int userId,String password){
         User user =userRepository.findOne(userId);
-
-        return null;
+        System.out.println(password);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        password = bCryptPasswordEncoder.encode(password);
+        System.out.println(password);
+        user.setPassword(password);
+        return userRepository.save(user);
     }
 }
