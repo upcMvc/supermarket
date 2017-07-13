@@ -94,6 +94,7 @@ public class ShopRecordController {
             @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "goodId", value = "商品id", required = true, dataType = "int")
     })
+
     @RequestMapping(value = "/getEvalutionByGoodId", method = RequestMethod.GET)
     public Object findByGoodId(int goodId) {
         List<ShopRecord> shopRecords = shopRecordService.findAllByGoodIdOrderByCreateTime(goodId);
