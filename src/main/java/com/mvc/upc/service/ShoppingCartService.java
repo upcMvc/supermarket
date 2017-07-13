@@ -7,6 +7,8 @@ import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by jay on 7/8/2017.
  */
@@ -15,6 +17,7 @@ public class ShoppingCartService {
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
     private final Log log = LogFactory.getLog(this.getClass());
+
     /**
      * @param userId
      * @param goodId
@@ -29,7 +32,7 @@ public class ShoppingCartService {
      * @param userId
      * @return an Iterator
      */
-    public Iterable<ShoppingCart> findAllByUserIdOrderByCreateTime(int userId) {
+    public List<ShoppingCart> findAllByUserIdOrderByCreateTime(int userId) {
         return shoppingCartRepository.findAllByUserIdOrderByCreateTime(userId);
     }
 
@@ -49,12 +52,12 @@ public class ShoppingCartService {
 
     /**
      * @param id
-     * @param num
+     * @param addNum 增加的数目
      */
-    public boolean updateShoppingCart(int id, int num) {
+    public boolean updateShoppingCart(int id, int addNum) {
         try {
             ShoppingCart shoppingCart = shoppingCartRepository.findFirstById(id);
-            shoppingCart.setNum(num);
+            shoppingCart.setNum(shoppingCart.getNum() + addNum);
             shoppingCart.setCreateTime();
             shoppingCartRepository.save(shoppingCart);
             return true;

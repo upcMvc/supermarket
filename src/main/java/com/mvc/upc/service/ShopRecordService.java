@@ -68,13 +68,22 @@ public class ShopRecordService {
         return shopRecords;
     }
 
-    public  Iterable<ShopRecord> findAllByUserIdAndStatusOrderByCreateTime(int userId, int status) {
+    public Iterable<ShopRecord> findAllByUserIdAndStatusOrderByCreateTime(int userId, int status) {
         Iterable<ShopRecord> shopRecords = shopRecordRepository.findAllByUserIdAndStatusOrderByCreateTime(userId, status);
         if (shopRecords != null) {
             log.info("没有存在的订单");
         }
         return shopRecords;
     }
+
+    public Iterable<ShopRecord> findAllByGoodIdOrderByCreateTime(int goodId) {
+        Iterable<ShopRecord> shopRecords = shopRecordRepository.findAllByGoodIdOrderByCreateTime(goodId);
+        if (shopRecords != null) {
+            log.info("没有存在的订单");
+        }
+        return shopRecords;
+    }
+
 
     /**
      * 订单完成后进行评论的接口
