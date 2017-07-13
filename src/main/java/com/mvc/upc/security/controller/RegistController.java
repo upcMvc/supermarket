@@ -215,9 +215,9 @@ public class RegistController {
 
     @GetMapping("forget_password")
     @ApiOperation(value = "忘记密码")
-    @ApiImplicitParam(paramType = "query",name = "userId",value = "用户ID",required = true,dataType = "int")
-    public Object forgetPassword(int userId){
-        User user = userRepository.findOne(userId);
+    @ApiImplicitParam(paramType = "query",name = "userName",value = "用户名",required = true,dataType = "String")
+    public Object forgetPassword(String userName){
+        User user = userRepository.findFirstByUsername(userName);
         if (user==null)
             return new JsonMes(-1,"用户不存在");
         String email = user.getEmail();
@@ -233,11 +233,16 @@ public class RegistController {
         String password = bCryptPasswordEncoder.encode(sb);
         System.out.println(password);
         user.setPassword(password);
-
         String message = "您好，"+user.getUsername()+"; 您的密码已设为"+sb
                 +";请尽快前往个人中心重置密码确保安全。";
         MailUtils.send(email,message);
-
         return userRepository.save(user);
+    }
+
+    @PostMapping("/reset_password")
+    public Object resetPassword(int userId,String password){
+        User user =userRepository.findOne(userId);
+
+        return null;
     }
 }
