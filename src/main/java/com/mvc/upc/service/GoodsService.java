@@ -7,6 +7,7 @@ import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -19,6 +20,9 @@ public class GoodsService {
     private Base64Service base64Service;
     @Autowired
     private GoodsRepository goodsRepository;
+    @Autowired
+    private FileUploadService fileUploadService;
+
 
     private final Log log = LogFactory.getLog(this.getClass());
 
@@ -82,5 +86,25 @@ public class GoodsService {
         }
         goodsRepository.delete(goodId);
         return true;
+    }
+    /**
+     * @param name
+     * @param kind
+     * @param describe
+     * @param num
+     * @param price
+     * @param file
+     * @return
+     * */
+    public Object newCreate(String name, String kind, String describe, int num, double price, MultipartFile file){
+        System.out.println(file.getOriginalFilename());
+        String filename = file.getOriginalFilename();
+        //获取文件后缀名
+        String suffix = filename.substring(filename.lastIndexOf(".") + 1);
+        //设置文件路径
+        String path = name + System.currentTimeMillis()+"."+suffix;
+        Goods goods = new Goods(name,kind,path,describe,num,price);
+        fileUploadService.store(file,path);
+        return goodsRepository.save(goods);
     }
 }
