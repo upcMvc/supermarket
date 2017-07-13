@@ -51,13 +51,15 @@ public class ShoppingCartController {
     })
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Object create(int userId, int goodId, int num) {
-        ShoppingCart shoppingCart = shoppingCartRepository.findFirstByGoodIdOrderByCreateTime(goodId);
+        ShoppingCart shoppingCart = shoppingCartRepository.findAllByUserIdAndGoodIdOrderByCreateTime(userId, goodId);
         if (shoppingCart != null) {
             this.update(shoppingCart.getId(), 1);
+            return new JsonMes(1, "增加购物车成功");
         } else {
             shoppingCartService.createShoppingCart(userId, goodId, num);
+            return new JsonMes(1, "添加购物车成功");
         }
-        return new JsonMes(1, "添加购物车成功");
+
     }
 
 
