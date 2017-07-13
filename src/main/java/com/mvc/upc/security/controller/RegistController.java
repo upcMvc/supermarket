@@ -52,20 +52,18 @@ public class RegistController {
 
     @Autowired
     private AppConfig appConfig;
+    @Autowired
+    private Base64Service base64Service;
 
     @ApiOperation(value = "注册接口", notes = "")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query",name = "imgStr", value = "图片base64", required = true,dataType = "String"),
-            @ApiImplicitParam(paramType = "query",name = "suffix",value = "图片格式",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "username",value = "用户名",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "password",value = "密码",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "phone",value = "电话",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name = "email",value = "邮箱",required = true,dataType = "String")
     })
     @RequestMapping(value = "/regist",method = RequestMethod.POST)
-    public Object regist(String imgStr,String suffix,String username,String password,String phone, String email,Device device){
-        Base64Service base64Service = new Base64Service();
-        String avatar = base64Service.generateImage(imgStr,"avatar",suffix);
+    public Object regist(String username,String password,String phone, String email,Device device){
         User user = userRepository.findFirstByUsername(username);
         if(user != null){
             return new JsonMes(-1,"用户名已存在");
@@ -83,7 +81,7 @@ public class RegistController {
         user = new User();
         user.setUsername(username);
         user.setPhone(phone);
-        user.setAvatar(avatar);
+//        user.setAvatar(avatar);
         user.setEmail(email);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         password = bCryptPasswordEncoder.encode(password);
@@ -253,6 +251,21 @@ public class RegistController {
         password = bCryptPasswordEncoder.encode(password);
         System.out.println(password);
         user.setPassword(password);
+        return userRepository.save(user);
+    }
+
+    @PostMapping("/setAvatar")
+    @ApiOperation(value = "设置用户头像")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = "userId", value = "用户Id", required = true,dataType = "int"),
+            @ApiImplicitParam(paramType = "query",name = "base64", value = "Base64编码", required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = "suffix", value = "文件后缀名", required = true,dataType = "String")
+    })
+    public Object setAvatar(int userId,String base64,String suffix){
+        User user = userRepository.findOne(userId);
+        String path = base64Service.generateImage(base64,user.getUsername(),suffix);
+        user.setAvatar(path);
         return userRepository.save(user);
     }
 }
