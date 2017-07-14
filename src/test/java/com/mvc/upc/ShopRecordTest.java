@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ShopRecordTest {
-    private int testUserId = 12506;
+    private int testUserId = 1;
     @Autowired
     private ShopRecordService shopRecordService;
     private Iterable<com.mvc.upc.model.ShopRecord> shopRecords;
