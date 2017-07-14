@@ -78,4 +78,17 @@ public class Good_StoreTest {
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println(s.format(new Date()));
     }
+
+    @Test
+    public void insert(){
+        String name = "牙刷";
+        String kind = "日常用品";
+        String path = "123.jpg";
+        String describe = "功能: 软毛 清洁 舌苔清洁 牙龈按摩";
+        int num = 2;
+        double price = 19.90;
+        Goods good = new Goods(name,kind,path,describe,num,price);
+
+        System.out.println(goodsRepository.save(good).getId());
+    }
 }

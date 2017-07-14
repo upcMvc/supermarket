@@ -128,7 +128,7 @@ public class GoodsController {
     @PostMapping("/newCreate")
     @ApiOperation(value = "添加顾客所见商品")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header",name = SwaggerParameter.Authorization,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="name",value = "商品名",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="kind",value = "商品种类",required = true,dataType = "String"),
             @ApiImplicitParam(paramType = "query" ,name ="describe",value = "商品描述",required = true,dataType = "String"),
@@ -142,4 +142,35 @@ public class GoodsController {
 
     }
 
+    @GetMapping("/fruits")
+    @ApiOperation(value = "水果")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String")})
+    public Object fruits(){
+        return goodsRepository.findAllByKind("水果");
+    }
+
+    @GetMapping("/daily")
+    @ApiOperation(value = "日常用品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String")})
+    public Object daily(){
+        return goodsRepository.findAllByKind("日常用品");
+    }
+
+    @GetMapping("/drink")
+    @ApiOperation(value = "饮品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String")})
+    public Object drink(){
+        return goodsRepository.findAllByKind("饮品");
+    }
+
+    @GetMapping("/snacks")
+    @ApiOperation(value = "零食")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query",name = SwaggerParameter.Authorization,dataType = "String")})
+    public Object snacks(){
+        return goodsRepository.findAllByKind("零食");
+    }
 }
