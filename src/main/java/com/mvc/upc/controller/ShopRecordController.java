@@ -48,7 +48,7 @@ public class ShopRecordController {
             @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "userId", value = "用户id", required = true, dataType = "int"),
             @ApiImplicitParam(paramType = "query", name = "goodId", value = "商品id", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType = "query", name = "num", value = "数量", required = true, dataType = "int"),
+            @ApiImplicitParam(paramType = "query", name = "number", value = "数量", required = true, dataType = "int"),
             @ApiImplicitParam(paramType = "query", name = "cost", value = "订单货款", required = true, dataType = "double"),
             @ApiImplicitParam(paramType = "query", name = "addressId", value = "addressId", required = true, dataType = "int")
     })
