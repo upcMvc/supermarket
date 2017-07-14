@@ -52,14 +52,18 @@ public class ShoppingCartService {
 
     /**
      * @param id
-     * @param addNum 增加的数目
+     * @param changeNum 增加/减少的数目
      */
-    public boolean updateShoppingCart(int id, int addNum) {
+    public boolean updateShoppingCart(int id, int changeNum) {
         try {
             ShoppingCart shoppingCart = shoppingCartRepository.findFirstById(id);
-            shoppingCart.setNum(shoppingCart.getNum() + addNum);
-            shoppingCart.setCreateTime();
-            shoppingCartRepository.save(shoppingCart);
+            shoppingCart.setNum(shoppingCart.getNum() + changeNum);
+            if (shoppingCart.getNum() == 0) {
+                this.deleteShoppingCart(id);
+            } else {
+                shoppingCart.setCreateTime();
+                shoppingCartRepository.save(shoppingCart);
+            }
             return true;
         } catch (Exception e) {
             log.info("更新购物车失败");

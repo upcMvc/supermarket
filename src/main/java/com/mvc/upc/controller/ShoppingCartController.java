@@ -110,11 +110,11 @@ public class ShoppingCartController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = SwaggerParameter.Authorization, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "id", value = "id字段值", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType = "query", name = "num", value = "数量", required = true, dataType = "int")
+            @ApiImplicitParam(paramType = "query", name = "changeNum", value = "增加/减少的数量", required = true, dataType = "int")
     })
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Object update(int id, int addNum) {
-        boolean ver = shoppingCartService.updateShoppingCart(id, addNum);
+    public Object update(int id, int changeNum) {
+        boolean ver = shoppingCartService.updateShoppingCart(id, changeNum);
         if (ver) {
             return new JsonMes(1, "修改成功");
         } else {
