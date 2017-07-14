@@ -21,7 +21,7 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @RestController
 @RequestMapping("/warehouse")
-@PreAuthorize("hasAnyRole({'ROLE_ADMIN','ROLE_WAREHOUSEADMIN'})")
+//@PreAuthorize("hasAnyRole({'ADMIN','WAREHOUSEADMIN'})")
 public class WareHouseController {
     @Autowired
     WareHouseService wareHouseService;

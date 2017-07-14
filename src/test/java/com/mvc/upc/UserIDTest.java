@@ -1,6 +1,8 @@
 package com.mvc.upc;
 
+import com.mvc.upc.security.model.*;
 import com.mvc.upc.security.service.JwtTokenUtil;
+import com.mvc.upc.service.AddAuthority;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,12 @@ public class UserIDTest {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private AddAuthority addAuthority;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private AuthorityRepository authorityRepository;
 
     @Test
     public void testId(){
@@ -24,5 +32,16 @@ public class UserIDTest {
         System.out.println(jwtTokenUtil.getUserIdFromToken(id));
     }
 
+    @Test
+    public void add(){
+        User user = userRepository.findOne(1);
+        Authority authority = authorityRepository.findFirstByName(AuthorityName.ROLE_ADMIN);
+        if(authority==null){
+            authority = new Authority();
+            authority.setName(AuthorityName.ROLE_ADMIN);
+            authority=authorityRepository.save(authority);
+        }
+        addAuthority.addAuthority(user,authority);
+    }
 
 }

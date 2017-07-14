@@ -26,6 +26,6 @@ public class Mailtest {
 
     @Test
     public void whSendEmail(){
-        wareHouseService.sendEmail(28);
+        wareHouseService.sendEmail(43);
     }
 }

@@ -44,7 +44,7 @@ public class LocationService {
      *@return
      **/
     public int compareCoordinate(int addressId){
-        System.out.println("addressId:"+addressId);
+        //System.out.println("addressId:"+addressId);
         Address address =addressRepository.findOne(addressId);
         Iterable<WareHouse> iwh = wareHouseRepository.findAllByCity(address.getCity());
         double lon = address.getLongitude();

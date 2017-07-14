@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RequestMapping("/blacklist")
 @RestController
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class BlacklistController {
 
     @Autowired

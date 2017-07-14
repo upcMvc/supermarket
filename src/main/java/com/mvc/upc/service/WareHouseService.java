@@ -116,6 +116,7 @@ public class WareHouseService {
         Iterator<ShopRecord> isr = shopRecords.iterator();
         String message = null;
         User user = userRepository.findOne(userId);
+        System.out.println(user.getUsername());
         message = "顾客的电话为：" + user.getPhone() + ";   顾客所需的商品的为：";
         ShopRecord shopRecord = isr.next();
         //获取仓库管理员的邮箱
@@ -130,18 +131,16 @@ public class WareHouseService {
         Goods goods = goodsRepository.findOne(shopRecord.getGoodId());
         message = message + " " + goods.getName() + " " + shopRecord.getNumber();
         while (isr.hasNext()) {
-
             shopRecord = isr.next();
             Goods good = goodsRepository.findOne(shopRecord.getGoodId());
-
             message = message + " " + good.getName() + " " + shopRecord.getNumber();
-
         }
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         message = message + ";   用户所在位置: " +location + ";   发送时间为："
                 + s.format(new Date())+";    请及时送达";
         MailUtils.send(email,message);
+        System.out.println(email);
+        System.out.println(message);
         return message;
     }
 
