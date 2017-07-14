@@ -1,6 +1,8 @@
 package com.mvc.upc.repository;
 
 import com.mvc.upc.model.ShopRecord;
+import com.sun.deploy.panel.ITreeNode;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -31,4 +33,7 @@ public interface ShopRecordRepository extends CrudRepository<ShopRecord, Integer
     ShopRecord findFirstById(int id);
 
     List<ShopRecord> findAllByGoodIdOrderByCreateTime(int goodId);
+
+    Iterable<ShopRecord> findAllByUserIdAndGoodIdAndWareHouseIdAndStatusOrderByCreateTime(int userId, int goodid, int wareHouseId, int status);
+
 }
