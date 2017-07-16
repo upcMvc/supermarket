@@ -58,7 +58,6 @@ public class LocationService {
             double lon1 =lon-wareHouse.getLongitude();
             double lat1 = lat-wareHouse.getLatitude();
             double differ = Math.sqrt(lon1*lon1+lat1*lat1);//经纬度直线距离差
-            System.out.println("距离差是："+differ);
             if(differ<di){
                 di = differ;
                 whid = wareHouse.getId();

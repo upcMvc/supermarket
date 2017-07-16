@@ -1,5 +1,6 @@
 package com.mvc.upc.service;
 
+import com.mvc.upc.dto.GoodDto;
 import com.mvc.upc.model.Address;
 import com.mvc.upc.model.Goods;
 import com.mvc.upc.model.ShopRecord;
@@ -15,8 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by wanghaojun on 2017/7/9.
@@ -128,18 +131,33 @@ public class WareHouseService {
         //获取用户提交订单所在的位置
         Address address = addressRepository.findOne(shopRecord.getAddressId());
         String location = address.getLocation();
+        //获取商品
         Goods goods = goodsRepository.findOne(shopRecord.getGoodId());
-        message = message + " " + goods.getName() + " " + shopRecord.getNumber();
+        List<String> goodnames = new ArrayList<>();
+        message = message + " " + goods.getName() + " " + shopRecord.getNumber()+",";
+//        GoodDto goodDto = new GoodDto(goods.getName(),shopRecord.getNumber());
+        goodnames.add(goods.getName());
         while (isr.hasNext()) {
             shopRecord = isr.next();
+            int num = 0;
             Goods good = goodsRepository.findOne(shopRecord.getGoodId());
-            message = message + " " + good.getName() + " " + shopRecord.getNumber();
+            Iterable<ShopRecord> ls = shopRecordRepository.findAllByUserIdAndGoodIdAndWareHouseIdAndStatusOrderByCreateTime(userId,good.getId(),whid,0);
+            Iterator<ShopRecord> lsh = ls.iterator();
+            while (lsh.hasNext()){
+                ShopRecord sr = lsh.next();
+                num = num+ sr.getNumber();
+                System.out.println(good.getName()+sr.getNumber());
+            }
+            if(!goodnames.contains(good.getName())){
+                goodnames.add(good.getName());
+                message = message + " " + good.getName() + " " + num+",";
+            }
+
         }
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        message = message + ";   用户所在位置: " +location + ";   发送时间为："
+        message = message +"</br>"+"用户所在位置: " +location + ";"+"</br>"+"发送时间为："
                 + s.format(new Date())+";    请及时送达";
         MailUtils.send(email,message);
-        System.out.println(email);
         System.out.println(message);
         return message;
     }
